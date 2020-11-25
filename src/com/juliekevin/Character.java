@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Character {
 	String name;
 	String location;
+	double money = 1000.00;
 	ArrayList<String> inventory = new ArrayList<String>();
 	
 	public Character(String name, String location) {
@@ -27,9 +28,5 @@ public class Character {
 	
 	public void setLocation(String location) {
 		this.location = location;
-	}
-	
-	public void addItem(String item) {
-		this.inventory.add(item);
 	}
 }
