@@ -1,24 +1,28 @@
 package com.juliekevin;
 
 import java.util.Scanner;
+import com.juliekevin.*;
+import com.juliekevin.Character;
 
 public class KrispyKreme {
 
     public static void main(String [] args) {
         boolean quit = false;
         boolean won = false;
-        String location = "the gates of hell";
-        String inventory = "not a damn thing";
-
+        
+        System.out.println("Welcome to Krispy Kreme. What is your name?");
         Scanner scanner = new Scanner(System.in);
+        
+        Character self = new Character(scanner.nextLine(), "The depths of Hell!");
+
 
         //  Really rough first crack
-        System.out.println("Welcome to Krispy Kreme.");
-        System.out.println("You are currently at: " + location);
-        System.out.println("Your inventory currently contains" + inventory);
+        
+        System.out.println("You are currently at: " + self.getLocation());
+        self.getInventory();
 
         while (!won && !quit) {
-            System.out.print(location + " > ");
+            System.out.print(self.getLocation() + " > ");
             String input = scanner.nextLine();
             //  TODO validation
             String [] words = input.trim().split(" ");
@@ -29,9 +33,11 @@ public class KrispyKreme {
                 quit = true;
             } else if ("go".equals(verb)) {
                 System.out.println("Going to " + noun);
-                location = noun;
+                self.setLocation(noun);
             } else if ("inventory".equals(verb)) {
-                System.out.println("Your inventory currently contains " + inventory);
+                self.getInventory();
+            } else {
+            	help();
             }
         }
         if (won) {
@@ -40,4 +46,9 @@ public class KrispyKreme {
             System.out.println("Sorry you have lost.  Better luck next time.");
         }
     }
+    
+	private static void help() {
+		System.out.println("Type 'go' and the name of the location you want to visit.");
+    	System.out.println("Type 'inventory' to check your inventory.");
+	}
 }
