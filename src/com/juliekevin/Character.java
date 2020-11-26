@@ -1,7 +1,5 @@
 package com.juliekevin;
 
-import java.util.ArrayList;
-
 public class Character {
 	String name;
 	String location;
@@ -20,7 +18,7 @@ public class Character {
 	
 	public void getInventory() {
 	    System.out.println("Your inventory currently contains: ");
-	    System.out.println(this.stash.toString());
+	    System.out.println(this.getStash().toString());
 	    System.out.println("You have $" + this.money + ".");
 	}
 	
@@ -34,6 +32,10 @@ public class Character {
 	
 	public void setMoney(double amount) {
 		this.money = amount;
+	}
+
+	public Stash getStash() {
+		return stash;
 	}
 	
 }

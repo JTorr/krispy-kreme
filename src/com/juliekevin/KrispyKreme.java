@@ -40,7 +40,11 @@ public class KrispyKreme {
             } else if("buy".equals(verb)) {
             	System.out.println("Quantity?");
             	int quantity = scanner.nextInt();
-            	self.stash.buyDrug(noun, quantity, self.getLocation(), self);
+            	self.getStash().buyDrug(noun, quantity, self.getLocation(), self);
+            } else if("sell".equals(verb)) {
+            	System.out.println("Quantity?");
+            	int quantity = scanner.nextInt();
+            	self.getStash().sellDrug(noun, quantity, self.getLocation(), self);
             } else {
             	help();
             }
