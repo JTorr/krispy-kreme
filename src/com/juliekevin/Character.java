@@ -6,7 +6,7 @@ public class Character {
 	String name;
 	String location;
 	double money = 1000.00;
-	ArrayList<String> inventory = new ArrayList<String>();
+	Stash stash = new Stash();
 	
 	public Character(String name, String location) {
 		this.name = name;
@@ -18,15 +18,20 @@ public class Character {
 	}
 	
 	public void getInventory() {
-		if(inventory.size() > 0) {
-	        System.out.println("Your inventory currently contains: ");
-			System.out.println(inventory.toString());
-		} else {
-			System.out.println("You inventory contains...not a damn thing!!!");
-		}
+	    System.out.println("Your inventory currently contains: ");
+	    System.out.println(stash.toString());
+	    System.out.println("You have $" + this.money + ".");
 	}
 	
 	public void setLocation(String location) {
 		this.location = location;
+	}
+	
+	public double getMoney() {
+		return this.money;
+	}
+	
+	public void setMoney(double amount) {
+		this.money = amount;
 	}
 }

@@ -14,6 +14,7 @@ public class KrispyKreme {
         Scanner scanner = new Scanner(System.in);
         
         Character self = new Character(scanner.nextLine(), "The depths of Hell!");
+        Stash stash = new Stash();
 
 
         //  Really rough first crack
