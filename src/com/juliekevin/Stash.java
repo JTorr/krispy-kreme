@@ -5,24 +5,23 @@ import com.juliekevin.*;
 import com.juliekevin.Character;
 
 public class Stash {
-	List<Drug> stash = new ArrayList<>();
+	List<Drug> stashList = new ArrayList<>();
 	
 	public Stash() {
-		this.stash.add(new Drug("coke", 0, 20.00));
-		this.stash.add(new Drug("weed", 0, 5.00));
+		this.stashList.add(new Drug("coke", 0, 20.00));
+		this.stashList.add(new Drug("weed", 0, 5.00));
 	}
 	
 	public List buyDrug(String name, int quantity, String location, Character self) {
 		if(this.getDrugIndex(name) > -1) {
 			int index = this.getDrugIndex(name);
-			Drug drug = this.stash.get(index);
+			Drug drug = this.stashList.get(index);
 		
 			double price = drug.getPrice() * quantity;
 			if(self.getMoney() >= price) {
-				//TODO: Fix update sash
-				Drug newQty = this.stash.get(index);
+				Drug newQty = this.stashList.get(index);
 				newQty.setQty(quantity);
-				this.stash.set(index, newQty);
+				this.stashList.set(index, newQty);
 				
 				self.setMoney(self.getMoney() - price);
 				System.out.println("You now have " + quantity + " of " + drug.getName() + ".");
@@ -34,20 +33,20 @@ public class Stash {
 		} else {
 			System.out.println("Drug name not found.");
 		}
-		return stash;
+		return stashList;
 	}
 	
 	public String toString() {
 		String s = "";
-		for(Drug drug: stash) {
+		for(Drug drug: stashList) {
 			s += drug.getName() + ": " + drug.getQty() + "\n";
 		}
 		return s;
 	}
 	
 	private int getDrugIndex(String name) {
-		for(int i = 0; i < stash.size(); i++) {
-			Drug testDrug = stash.get(i);
+		for(int i = 0; i < stashList.size(); i++) {
+			Drug testDrug = stashList.get(i);
 			if(name.equals(testDrug.getName())) {
 				return i;
 			}

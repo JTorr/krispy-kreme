@@ -14,7 +14,7 @@ public class KrispyKreme {
         Scanner scanner = new Scanner(System.in);
         
         Character self = new Character(scanner.nextLine(), "The depths of Hell!");
-        Stash stash = new Stash();
+        
 
 
         //  Really rough first crack
@@ -40,7 +40,7 @@ public class KrispyKreme {
             } else if("buy".equals(verb)) {
             	System.out.println("Quantity?");
             	int quantity = scanner.nextInt();
-            	stash.buyDrug(noun, quantity, self.getLocation(), self);
+            	self.stash.buyDrug(noun, quantity, self.getLocation(), self);
             } else {
             	help();
             }
