@@ -34,4 +34,5 @@ public class Character {
 	public void setMoney(double amount) {
 		this.money = amount;
 	}
+	
 }

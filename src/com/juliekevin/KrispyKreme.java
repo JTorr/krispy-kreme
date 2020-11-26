@@ -37,6 +37,10 @@ public class KrispyKreme {
                 self.setLocation(noun);
             } else if ("inventory".equals(verb)) {
                 self.getInventory();
+            } else if("buy".equals(verb)) {
+            	System.out.println("Quantity?");
+            	int quantity = scanner.nextInt();
+            	stash.buyDrug(noun, quantity, self.getLocation(), self);
             } else {
             	help();
             }
