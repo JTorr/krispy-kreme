@@ -1,8 +1,6 @@
 package com.juliekevin;
-import java.util.*;
-
-import com.juliekevin.*;
-import com.juliekevin.Character;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Stash {
 	List<Drug> stashList = new ArrayList<>();
