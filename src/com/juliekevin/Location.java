@@ -12,5 +12,8 @@ public class Location {
 		this.priceModifier = rand.nextDouble();
 	}
 	
-	
+	public void priceList() {
+		
+	}
+
 }
