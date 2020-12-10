@@ -1,4 +1,5 @@
 package com.juliekevin;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -6,8 +7,8 @@ public class Stash {
 	List<Sweet> stashList = new ArrayList<>();
 	
 	public Stash() {
-		this.stashList.add(new Sweet("caramel", 0, 20.00));
-		this.stashList.add(new Sweet("donut", 0, 5.00));
+		this.stashList.add(new Sweet("caramel", 0, new BigDecimal("20.00")));
+		this.stashList.add(new Sweet("donut", 0, new BigDecimal("5.00")));
 	}
 	
 	public void buySweet(String name, int quantity, String location, Character self) {
@@ -15,13 +16,13 @@ public class Stash {
 			int index = this.getSweetIndex(name);
 			Sweet sweet = this.stashList.get(index);
 		
-			double price = sweet.getPrice() * quantity;
-			if(self.getMoney() >= price) {
+			BigDecimal price = sweet.getPrice().multiply(new BigDecimal(quantity));
+			if(self.getMoney().compareTo(price) >= 0) {
 				Sweet newQty = this.stashList.get(index);
 				newQty.setQty(quantity);
 				this.stashList.set(index, newQty);
 				
-				self.setMoney(self.getMoney() - price);
+				self.setMoney(self.getMoney().subtract(price));
 				System.out.println("You now have " + quantity + " of " + sweet.getName() + ".");
 				// TODO: format money properly
 				System.out.println("You have $" + self.getMoney() + ".");
@@ -42,14 +43,14 @@ public class Stash {
 				System.out.println("You have " + sweet.getQty() + " of " + sweet.getName() + ".");
 				return;
 			}
-			double price = sweet.getPrice() * quantity;
-			self.money += price;
+			BigDecimal price = sweet.getPrice().multiply(new BigDecimal(quantity));
+			self.setMoney(self.money.add(price));
 			Sweet newQty = this.stashList.get(index);
 			newQty.setQty(sweet.quantity - quantity);
 			this.stashList.set(index, newQty);
 			
 			System.out.println("You sold " + quantity + " of " + sweet.getName());
-			System.out.println("You earned $" + price + " and now have $" + self.money);
+			System.out.println("You earned $" + price.toString() + " and now have $" + self.money);
 		}
 	}
 	

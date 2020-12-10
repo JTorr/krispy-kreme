@@ -1,9 +1,11 @@
 package com.juliekevin;
 
+import java.math.BigDecimal;
+
 public class Character {
 	String name;
 	String location;
-	double money = 1000.00;
+	BigDecimal money = new BigDecimal("1000.00");
 	Stash stash;
 	
 	public Character(String name, String location) {
@@ -19,18 +21,18 @@ public class Character {
 	public void getInventory() {
 	    System.out.println("Your inventory currently contains: ");
 	    System.out.println(this.getStash().toString());
-	    System.out.println("You have $" + this.money + ".");
+	    System.out.println("You have $" + this.money.toString() + ".");
 	}
 	
 	public void setLocation(String location) {
 		this.location = location;
 	}
 	
-	public double getMoney() {
+	public BigDecimal getMoney() {
 		return this.money;
 	}
 	
-	public void setMoney(double amount) {
+	public void setMoney(BigDecimal amount) {
 		this.money = amount;
 	}
 
