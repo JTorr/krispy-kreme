@@ -1,13 +1,11 @@
 package com.juliekevin;
 
-import java.math.BigDecimal;
-
 public class Sweet {
 	String name;
 	int quantity;
-	BigDecimal price;
+	String price;
 	
-	public Sweet(String name, int qty, BigDecimal price) {
+	public Sweet(String name, int qty, String price) {
 		this.name = name;
 		this.quantity = qty;
 		this.price = price;
@@ -17,7 +15,7 @@ public class Sweet {
 		this.quantity = qty;
 	}
 	
-	public BigDecimal getPrice() {
+	public String getPrice() {
 		return this.price;
 	}
 	

@@ -1,11 +1,11 @@
 package com.juliekevin;
 
-import java.math.BigDecimal;
+import com.juliekevin.model.CoinPurse;
 
 public class Character {
 	String name;
 	String location;
-	BigDecimal money = new BigDecimal("1000.00");
+	CoinPurse wallet = new CoinPurse();
 	Stash stash;
 	
 	public Character(String name, String location) {
@@ -19,21 +19,16 @@ public class Character {
 	}
 	
 	public void getInventory() {
-	    System.out.println("Your inventory currently contains: ");
-	    System.out.println(this.getStash().toString());
-	    System.out.println("You have $" + this.money.toString() + ".");
+		StringBuilder sb = new StringBuilder("Your inventory currently contains: ");
+		sb.append(this.getStash().toString());
+	    sb.append("\nYou have $");
+	    sb.append(wallet.getMoney());
+	    sb.append(".");
+	    System.out.println(sb.toString());
 	}
 	
 	public void setLocation(String location) {
 		this.location = location;
-	}
-	
-	public BigDecimal getMoney() {
-		return this.money;
-	}
-	
-	public void setMoney(BigDecimal amount) {
-		this.money = amount;
 	}
 
 	public Stash getStash() {

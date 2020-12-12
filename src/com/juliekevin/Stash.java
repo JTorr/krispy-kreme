@@ -1,14 +1,15 @@
 package com.juliekevin;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.juliekevin.model.CoinPurse;
 
 public class Stash {
 	List<Sweet> stashList = new ArrayList<>();
 	
 	public Stash() {
-		this.stashList.add(new Sweet("caramel", 0, new BigDecimal("20.00")));
-		this.stashList.add(new Sweet("donut", 0, new BigDecimal("5.00")));
+		this.stashList.add(new Sweet("caramel", 0, "20.00"));
+		this.stashList.add(new Sweet("donut", 0, "5.00"));
 	}
 	
 	public void buySweet(String name, int quantity, String location, Character self) {
@@ -16,20 +17,23 @@ public class Stash {
 			int index = this.getSweetIndex(name);
 			Sweet sweet = this.stashList.get(index);
 		
-			BigDecimal price = sweet.getPrice().multiply(new BigDecimal(quantity));
-			if(self.getMoney().compareTo(price) >= 0) {
+			String price = CoinPurse.getTotalPrice(sweet.getPrice(), quantity);
 				Sweet newQty = this.stashList.get(index);
-				newQty.setQty(quantity);
-				this.stashList.set(index, newQty);
-				
-				self.setMoney(self.getMoney().subtract(price));
+				try {
+					self.wallet.spendMoney(price);
+					newQty.setQty(quantity);
+					this.stashList.set(index, newQty);
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					System.out.println("Price is " + price);
+					System.out.println("Your funds: " + self.wallet.getMoney());
+					System.out.println("Insufficient funds!!!");
+					return;
+				}
 				System.out.println("You now have " + quantity + " of " + sweet.getName() + ".");
-				// TODO: format money properly
-				System.out.println("You have $" + self.getMoney() + ".");
+				
+				System.out.println("You have $" + self.wallet.getMoney() + ".");
 			} else {
-				System.out.println("Insufficient funds!!!");
-			}
-		} else {
 			System.out.println("Sweet name not found.");
 		}
 	}
@@ -43,14 +47,15 @@ public class Stash {
 				System.out.println("You have " + sweet.getQty() + " of " + sweet.getName() + ".");
 				return;
 			}
-			BigDecimal price = sweet.getPrice().multiply(new BigDecimal(quantity));
-			self.setMoney(self.money.add(price));
+			String price = CoinPurse.getTotalPrice(sweet.getPrice(), quantity);
+			self.wallet.earnMoney(price);
+
 			Sweet newQty = this.stashList.get(index);
 			newQty.setQty(sweet.quantity - quantity);
 			this.stashList.set(index, newQty);
 			
 			System.out.println("You sold " + quantity + " of " + sweet.getName());
-			System.out.println("You earned $" + price.toString() + " and now have $" + self.money);
+			System.out.println("You earned $" + price.toString() + " and now have $" + self.wallet.getMoney());
 		}
 	}
 	
