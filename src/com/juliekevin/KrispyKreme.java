@@ -1,8 +1,6 @@
 package com.juliekevin;
 
 import java.util.Scanner;
-import com.juliekevin.*;
-import com.juliekevin.Character;
 
 public class KrispyKreme {
 
