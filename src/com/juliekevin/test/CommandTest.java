@@ -1,12 +1,15 @@
-package com.juliekevin.model;
+package com.juliekevin.test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import com.juliekevin.model.Command;
+
 class CommandTest {
 
 	private final Command goNaperville = new Command("go", "Naperville");
+	private final Command inventory = new Command("inventory");
 	
 	@Test
 	void getVerb() {
@@ -31,5 +34,6 @@ class CommandTest {
 	@Test
 	void getHashCode() {
 		assertEquals(-1226717439, goNaperville.hashCode());
+		assertEquals(1785927141, inventory.hashCode());
 	}
 }

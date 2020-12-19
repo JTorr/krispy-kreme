@@ -11,6 +11,11 @@ public class Command {
         this.verb = verb;
         this.noun = noun;
     }
+    
+    public Command(String verb) {
+    	this.verb = verb;
+    	this.noun = null;
+    }
 
     public String getVerb() {
         return verb;
