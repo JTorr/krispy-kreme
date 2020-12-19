@@ -33,6 +33,5 @@ public class Character {
 
 	public Stash getStash() {
 		return stash;
-	}
-	
+	}	
 }

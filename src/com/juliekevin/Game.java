@@ -2,24 +2,25 @@ package com.juliekevin;
 
 import java.util.Scanner;
 
-public class KrispyKreme {
+public class Game {
+	static Character player;
+	static String status;
 
     public static void main(String [] args) {
-        boolean quit = false;
-        boolean won = false;
+    	Game.status = "active";
         
         System.out.println("Welcome to Krispy Kreme. What is your name?");
         Scanner scanner = new Scanner(System.in);
         
-        Character self = new Character(scanner.nextLine(), "Secret Sugar Factory");
-        storyIntro(self.name);
+        Game.player = new Character(scanner.nextLine(), "Secret Sugar Factory");
+        storyIntro(Game.player.name);
 
         
-        System.out.println("You are currently at: " + self.getLocation());
-        self.getInventory();
+        System.out.println("You are currently at: " + player.getLocation());
+        player.getInventory();
 
-        while (!won && !quit) {
-            System.out.print(self.getLocation() + " > ");
+        while (Game.status.equals("active")) {
+            System.out.print(player.getLocation() + " > ");
             String input = scanner.nextLine();
             //  TODO validation
             String [] words = input.trim().split(" ");
@@ -27,25 +28,25 @@ public class KrispyKreme {
             String noun = (words.length > 1) ?  words[1].trim() : "";
             if ("quit".equals(verb)) {
                 System.out.println("Exiting...");
-                quit = true;
+                Game.status = "quit";
             } else if ("go".equals(verb)) {
                 System.out.println("Going to " + noun);
-                self.setLocation(noun);
+                player.setLocation(noun);
             } else if ("inventory".equals(verb)) {
-                self.getInventory();
+                player.getInventory();
             } else if("buy".equals(verb)) {
             	System.out.println("Quantity?");
             	int quantity = scanner.nextInt();
-            	self.getStash().buySweet(noun, quantity, self.getLocation(), self);
+            	player.getStash().buySweet(noun, quantity, player.getLocation(), player);
             } else if("sell".equals(verb)) {
             	System.out.println("Quantity?");
             	int quantity = scanner.nextInt();
-            	self.getStash().sellSweet(noun, quantity, self.getLocation(), self);
+            	player.getStash().sellSweet(noun, quantity, player.getLocation(), player);
             } else {
             	help();
             }
         }
-        if (won) {
+        if (Game.status.equals("won")) {
             System.out.println("Congratulations you have won!");
         } else {
         	scanner.close();
