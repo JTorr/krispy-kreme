@@ -4,7 +4,7 @@ import com.juliekevin.model.Command;
 
 public class Parser {
 
-    public Command parse(String input) {
+    public static Command parse(String input) {
     	String [] words = input.trim().split(" ");
     	
     	if(words.length == 1) {
@@ -15,4 +15,5 @@ public class Parser {
     	    return new Command(verb, noun);
     	}       
     }
+
 }
