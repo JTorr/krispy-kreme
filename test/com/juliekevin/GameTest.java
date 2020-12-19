@@ -1,8 +1,8 @@
-package com.juliekevin.test;
-
-import static org.junit.jupiter.api.Assertions.*;
+package com.juliekevin;
 
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.fail;
 
 class GameTest {
 

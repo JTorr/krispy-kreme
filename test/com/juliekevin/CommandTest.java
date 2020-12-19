@@ -1,10 +1,9 @@
-package com.juliekevin.test;
-
-import static org.junit.jupiter.api.Assertions.*;
-
-import org.junit.jupiter.api.Test;
+package com.juliekevin;
 
 import com.juliekevin.model.Command;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CommandTest {
 

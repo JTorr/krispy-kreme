@@ -1,11 +1,10 @@
-package com.juliekevin.test;
+package com.juliekevin;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+import com.juliekevin.model.Command;
 import org.junit.jupiter.api.Test;
 
-import com.juliekevin.Parser;
-import com.juliekevin.model.Command;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 class ParserTest {
 	
