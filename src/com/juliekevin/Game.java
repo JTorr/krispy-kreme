@@ -2,6 +2,8 @@ package com.juliekevin;
 
 import java.util.Scanner;
 
+import com.juliekevin.model.Command;
+
 public class Game {
 	static Character player;
 	static String status;
@@ -22,30 +24,35 @@ public class Game {
         while (Game.status.equals("active")) {
             System.out.print(player.getLocation() + " > ");
             String input = scanner.nextLine();
-            //  TODO validation
-            String [] words = input.trim().split(" ");
-            String verb = words[0].trim();
-            String noun = (words.length > 1) ?  words[1].trim() : "";
-            if ("quit".equals(verb)) {
-                System.out.println("Exiting...");
+            Command cmd = Parser.parse(input);
+            
+            switch(cmd.getVerb()) {
+            case "quit": 
+            	System.out.println("Exiting...");
                 Game.status = "quit";
-            } else if ("go".equals(verb)) {
-                System.out.println("Going to " + noun);
-                player.setLocation(noun);
-            } else if ("inventory".equals(verb)) {
-                player.getInventory();
-            } else if("buy".equals(verb)) {
+                break;
+            case "go":
+            	System.out.println("Going to " + cmd.getNoun());
+                player.setLocation(cmd.getNoun());
+                break;
+            case "inventory":
+            	player.getInventory();
+            	break;
+            case "buy":
             	System.out.println("Quantity?");
             	int quantity = scanner.nextInt();
-            	player.getStash().buySweet(noun, quantity, player.getLocation(), player);
-            } else if("sell".equals(verb)) {
+            	player.getStash().buySweet(cmd.getNoun(), quantity, player.getLocation(), player);
+            	break;
+            case "sell":
             	System.out.println("Quantity?");
-            	int quantity = scanner.nextInt();
-            	player.getStash().sellSweet(noun, quantity, player.getLocation(), player);
-            } else {
-            	help();
+            	int qty = scanner.nextInt();
+            	player.getStash().sellSweet(cmd.getNoun(), qty, player.getLocation(), player);
+            	break;
+            	default:
+            		help();
             }
-        }
+            }
+            
         if (Game.status.equals("won")) {
             System.out.println("Congratulations you have won!");
         } else {
