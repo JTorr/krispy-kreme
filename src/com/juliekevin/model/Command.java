@@ -6,6 +6,7 @@ public class Command {
 
     private String verb = null;
     private String noun = null;
+    private int qty = 0;
 
     public Command(String verb, String noun) {
         this.verb = verb;
@@ -14,7 +15,12 @@ public class Command {
     
     public Command(String verb) {
     	this.verb = verb;
-    	this.noun = null;
+    }
+    
+    public Command(String verb, String noun, int qty) {
+    	this.verb = verb;
+    	this.noun = noun;
+    	this.qty = qty;
     }
 
     public String getVerb() {
@@ -34,6 +40,10 @@ public class Command {
                 Objects.equals(noun, command.noun);
     }
 
+	public int getQty() {
+		return qty;
+	}
+    
     @Override
     public int hashCode() {
 
@@ -43,4 +53,5 @@ public class Command {
     private Command(){
         //  Immutable
     }
+
 }

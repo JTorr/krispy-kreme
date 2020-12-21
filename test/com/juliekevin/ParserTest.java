@@ -7,17 +7,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 class ParserTest {
-	
+	Parser p = new Parser();
 
 	@Test
-	void parseSingleString() {
-		Command cmd = Parser.parse("inventory");
+	void parseSingleString() throws Exception {
+		Command cmd = p.parse("inventory");
 		assertEquals(1785927141, cmd.hashCode());
 	}
 	
 	@Test
-	void parseVerbNoun() {
-		Command cmd = Parser.parse("go Naperville   ");
+	void parseVerbNoun() throws Exception {
+		Command cmd = p.parse("go Naperville   ");
 		assertEquals(-1226717439, cmd.hashCode());
 	}
 }

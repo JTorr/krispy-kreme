@@ -10,6 +10,7 @@ public class Game {
 
     public static void main(String [] args) {
     	Game.status = "active";
+    	Parser parser = new Parser();
         
         System.out.println("Welcome to Krispy Kreme. What is your name?");
         Scanner scanner = new Scanner(System.in);
@@ -21,10 +22,24 @@ public class Game {
         System.out.println("You are currently at: " + player.getLocation());
         System.out.println(player.getInventory());
 
-        while (Game.status.equals("active")) {
-            System.out.print(player.getLocation() + " > ");
+        while (Game.status.equals("active")) {  
+        	processInput(parser, scanner);                 
+        }
+            
+        if (Game.status.equals("won")) {
+            System.out.println("Congratulations you have won!");
+            scanner.close();
+        } else {
+        	scanner.close();
+            System.out.println("Sorry you have lost.  Better luck next time.");
+        }
+    }
+    
+    private static void processInput(Parser parser, Scanner scanner) {
+    	try {
+    		System.out.print(player.getLocation() + " > ");
             String input = scanner.nextLine();
-            Command cmd = Parser.parse(input);
+            Command cmd = parser.parse(input);
             
             switch(cmd.getVerb()) {
             case "quit": 
@@ -39,26 +54,16 @@ public class Game {
             	System.out.println(player.getInventory());
             	break;
             case "buy":
-            	System.out.println("Quantity?");
-            	int quantity = scanner.nextInt();
-            	player.getStash().buySweet(cmd.getNoun(), quantity, player.getLocation(), player);
+            	player.getStash().buySweet(cmd.getNoun(), cmd.getQty(), player.getLocation(), player);
             	break;
             case "sell":
-            	System.out.println("Quantity?");
-            	int qty = scanner.nextInt();
-            	player.getStash().sellSweet(cmd.getNoun(), qty, player.getLocation(), player);
+            	player.getStash().sellSweet(cmd.getNoun(), cmd.getQty(), player.getLocation(), player);
             	break;
             	default:
             		help();
             }
-            }
-            
-        if (Game.status.equals("won")) {
-            System.out.println("Congratulations you have won!");
-            scanner.close();
-        } else {
-        	scanner.close();
-            System.out.println("Sorry you have lost.  Better luck next time.");
+        } catch(Exception e) {
+        	System.out.println(e.getMessage());
         }
     }
     
