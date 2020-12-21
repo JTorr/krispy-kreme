@@ -59,8 +59,8 @@ public class Game {
             case "sell":
             	player.getStash().sellSweet(cmd.getNoun(), cmd.getQty(), player.getLocation(), player);
             	break;
-            	default:
-            		help();
+            default:
+                help();
             }
         } catch(Exception e) {
         	System.out.println(e.getMessage());
