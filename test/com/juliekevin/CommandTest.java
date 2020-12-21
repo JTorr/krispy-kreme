@@ -3,7 +3,7 @@ package com.juliekevin;
 import com.juliekevin.model.Command;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class CommandTest {
 
@@ -22,12 +22,12 @@ class CommandTest {
 
 	@Test
 	void equals() {
-		assertEquals(true, goNaperville.equals(new Command("go", "Naperville")));
-		assertEquals(true, goNaperville.equals(goNaperville));
-		assertEquals(false, goNaperville.equals(new Command("go", "Jupiter")));
-		assertEquals(false, goNaperville.equals(new Command("sell", "Naperville")));
-		assertEquals(false, goNaperville.equals(null));
-		assertEquals(false, goNaperville.equals(new Object()));
+		assertTrue(goNaperville.equals(new Command("go", "Naperville")));
+		assertTrue(goNaperville.equals(goNaperville));
+		assertTrue(goNaperville.equals(new Command("go", "Jupiter")));
+		assertFalse(goNaperville.equals(new Command("sell", "Naperville")));
+		assertFalse(goNaperville.equals(null));
+		assertFalse(goNaperville.equals(new Object()));
 	}
 	
 	@Test

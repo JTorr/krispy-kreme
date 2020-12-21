@@ -19,7 +19,7 @@ public class Game {
 
         
         System.out.println("You are currently at: " + player.getLocation());
-        player.getInventory();
+        System.out.println(player.getInventory());
 
         while (Game.status.equals("active")) {
             System.out.print(player.getLocation() + " > ");
@@ -36,7 +36,7 @@ public class Game {
                 player.setLocation(cmd.getNoun());
                 break;
             case "inventory":
-            	player.getInventory();
+            	System.out.println(player.getInventory());
             	break;
             case "buy":
             	System.out.println("Quantity?");
@@ -55,6 +55,7 @@ public class Game {
             
         if (Game.status.equals("won")) {
             System.out.println("Congratulations you have won!");
+            scanner.close();
         } else {
         	scanner.close();
             System.out.println("Sorry you have lost.  Better luck next time.");

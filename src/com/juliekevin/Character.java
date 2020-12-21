@@ -18,13 +18,13 @@ public class Character {
 		return this.location;
 	}
 	
-	public void getInventory() {
+	public String getInventory() {
 		StringBuilder sb = new StringBuilder("Your inventory currently contains: ");
 		sb.append(this.getStash().toString());
 	    sb.append("\nYou have $");
 	    sb.append(wallet.getMoney());
 	    sb.append(".");
-	    System.out.println(sb.toString());
+	    return sb.toString();
 	}
 	
 	public void setLocation(String location) {
