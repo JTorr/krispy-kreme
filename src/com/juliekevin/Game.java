@@ -64,6 +64,8 @@ public class Game {
             	break;
             	default:
             		help();
+            default:
+                help();
             }
         } catch(Exception e) {
         	System.out.println(e.getMessage());
