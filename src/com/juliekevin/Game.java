@@ -59,6 +59,9 @@ public class Game {
             case "sell":
             	player.getStash().sellSweet(cmd.getNoun(), cmd.getQty(), player.getLocation(), player);
             	break;
+            case "help":
+            	help();
+            	break;
             	default:
             		help();
             }
@@ -68,8 +71,8 @@ public class Game {
     }
     
 	private static void help() {
-		System.out.println("Type 'go' and the name of the location you want to visit.");
-    	System.out.println("Type 'inventory' to check your inventory.\n\n");
+		System.out.println("Enter commands in the following format: verb + noun (optional) + quantity(optional)");
+		System.out.println("Example commands:\n 'go MyCity',\n 'buy donuts 3',\n 'sell 3 donuts',\n 'inventory',\n 'help'\n");
 	}
 	
 	private static void storyIntro(String name) {
