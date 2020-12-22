@@ -62,10 +62,8 @@ public class Game {
             case "help":
             	help();
             	break;
-            	default:
-            		help();
             default:
-                help();
+            	help();
             }
         } catch(Exception e) {
         	System.out.println(e.getMessage());
