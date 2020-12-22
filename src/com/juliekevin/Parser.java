@@ -7,7 +7,7 @@ public class Parser {
 
     public Command parse(String input) throws Exception {
     	String [] words = input.trim().split(" ");
-    	String parsedVerb;
+    	Verb parsedVerb;
     	try {
     		parsedVerb = parseVerb(words[0].trim());
     	} catch(Exception e) {
@@ -16,42 +16,50 @@ public class Parser {
 
     	
     	
-    	if(words.length == 1) {
-    		return new Command(parsedVerb);
-    	} else if(words.length == 2){
+    	if(parsedVerb.getType() == "single") {
+    		return new Command(parsedVerb.toString());
+    	} else if(parsedVerb.getType() == "move" && words.length >= 2){
     		String noun = words[1].trim();
-    	    return new Command(parsedVerb, noun);
-    	} else {
+    	    return new Command(parsedVerb.toString(), noun);
+    	} else if(parsedVerb.getType() == "sale" && words.length == 3){
     		return parseWithQty(words[0], words[1], words[2]);
+    	} else {
+    		throw new Exception("Command type could not be identified.");
     	}
     }
     
-    private String parseVerb(String word) throws Exception {
+    private Verb parseVerb(String word) throws Exception {
     	try {
-    		return Verb.valueOf(word.toUpperCase()).toString();
+    		return Verb.valueOf(word.toUpperCase());
     	} catch(Exception e) {
     		throw new Exception("Invalid command. Verb not recognized.");
     	}
     }
     
     
-    private Boolean isNumeric(String word) {
+    private Boolean isNumeric(String word) throws Exception {
     	try {
     		Integer.parseInt(word);
-    	} catch(NumberFormatException nfe) {
-    		return false;
+    	} catch(NumberFormatException | IndexOutOfBoundsException e) {
+    		throw new Exception("Buy and sell commands must include quantity");
     	}
     	return true;
     }
     
     private Command parseWithQty(String w1, String w2, String w3) throws Exception {
-    	if(isNumeric(w2)) {
-    		return new Command(w1, w3, Integer.parseInt(w2));
-    	} else if(isNumeric(w3)) {
-    		return new Command(w1, w2, Integer.parseInt(w3));
-    	} else {
-    		throw new Exception("Input should match format: verb + noun + quantity");
+    	try {
+    		if(isNumeric(w2)) {
+        		return new Command(w1, w3, Integer.parseInt(w2));
+        	} else if(isNumeric(w3)) {
+        		return new Command(w1, w2, Integer.parseInt(w3));
+        	} else {
+        		throw new Exception("Input should match format: verb + noun + quantity");
+        	}
+    	} catch(Exception e) {
+    		throw new Exception("Re-enter command with quantity. Input should match format: verb + noun + quantity");
+
     	}
+    	
     }
 
 }

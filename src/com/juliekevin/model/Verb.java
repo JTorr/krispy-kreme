@@ -1,12 +1,18 @@
 package com.juliekevin.model;
 
 public enum Verb {
-	GO("go"), BUY("buy"), SELL("sell"), VIEW("view"), INVENTORY("inventory"), QUIT("quit"), HELP("help");
+	GO("go", "move"), BUY("buy", "sale"), SELL("sell", "sale"), INVENTORY("inventory", "single"), QUIT("quit", "single"), HELP("help", "single");
 	
 	private String name;
+	private String type;
 	
-	Verb(String name) {
+	Verb(String name, String commandType) {
 		this.name = name;
+		this.type = commandType;
+	}
+	
+	public String getType() {
+		return type;
 	}
 	
 	@Override
