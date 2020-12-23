@@ -24,7 +24,7 @@ class CommandTest {
 	void equals() {
 		assertTrue(goNaperville.equals(new Command("go", "Naperville")));
 		assertTrue(goNaperville.equals(goNaperville));
-		assertTrue(goNaperville.equals(new Command("go", "Jupiter")));
+		assertFalse(goNaperville.equals(new Command("go", "Jupiter")));
 		assertFalse(goNaperville.equals(new Command("sell", "Naperville")));
 		assertFalse(goNaperville.equals(null));
 		assertFalse(goNaperville.equals(new Object()));
