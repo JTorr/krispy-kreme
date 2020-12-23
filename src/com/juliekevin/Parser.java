@@ -40,8 +40,8 @@ public class Parser {
     private Boolean isNumeric(String word) throws Exception {
     	try {
     		Integer.parseInt(word);
-    	} catch(NumberFormatException | IndexOutOfBoundsException e) {
-    		throw new Exception("Buy and sell commands must include quantity");
+    	} catch(NumberFormatException nfe) {
+    		return false;
     	}
     	return true;
     }
