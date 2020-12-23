@@ -21,8 +21,12 @@ public class Parser {
     	} else if(parsedVerb.getType() == "move" && words.length >= 2){
     		String noun = words[1].trim();
     	    return new Command(parsedVerb.toString(), noun);
-    	} else if(parsedVerb.getType() == "sale" && words.length == 3){
+    	} else if(parsedVerb.getType() == "move" && words.length < 2) {
+    		throw new Exception("Move commands must include location.");
+    	}else if(parsedVerb.getType() == "sale" && words.length == 3){
     		return parseWithQty(words[0], words[1], words[2]);
+    	} else if(parsedVerb.getType() == "sale" && words.length < 3) {
+    		throw new Exception("Buy/sell commands must include item and quantity.");
     	} else {
     		throw new Exception("Command type could not be identified.");
     	}

@@ -39,7 +39,7 @@ class ParserTest {
 			p.parse("go");
 		});
 		
-		String expectedMsg = "Command type could not be identified.";
+		String expectedMsg = "Move commands must include location.";
 		String actualMsg = exception.getMessage();
 		assertTrue(actualMsg.contains(expectedMsg));
 	}
@@ -62,7 +62,7 @@ class ParserTest {
 			p.parse("buy donut");
 		});
 		
-		String expectedMsg = "Command type could not be identified.";
+		String expectedMsg = "Buy/sell commands must include item and quantity.";
 		String actualMsg = exception.getMessage();
 		assertTrue(actualMsg.contains(expectedMsg));
 	}
