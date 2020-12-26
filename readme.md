@@ -26,7 +26,7 @@ Menu
 Buy 1000 Donuts
 (display inventory and cash/bank balance)
 Drive to Naperville
-(display demand and prices for each drug)
+(display demand and prices for each Sweet)
 Sell 1000 Donuts
 (display inventory and cash/bank balance)
 ...
