@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.juliekevin.Sweet;
 
+import utils.GameUtils;
+
 public class SweetList {
 	List<Sweet> allSweets = new ArrayList<>();
 
@@ -26,6 +28,18 @@ public class SweetList {
 			}
 		}
 		return null;
+	}
+
+	public List<Sweet> selectRandom(int qty) {
+		List<Sweet> available = new ArrayList<>(allSweets);
+		List<Sweet> sweetList = new ArrayList<>();
+		for(int i=0; i < qty; i++) {
+			int rand = GameUtils.getRand(0, available.size() - 1);
+			Sweet selected = available.get(rand);
+			sweetList.add(selected);
+			available.remove(rand);
+		}
+		return sweetList;
 	}
 
 }

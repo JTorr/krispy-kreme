@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
-import com.juliekevin.model.Dealer;
+import com.juliekevin.model.Supplier;
 
-class DealerTest {
+class SupplierTest {
 	Sweet donut = new Sweet("donut", 5, "10.00");
 	Sweet lolly = new Sweet("lolly", 10, "5.00");
 	
@@ -18,9 +18,9 @@ class DealerTest {
 	void getInventory() {
 		wares.add(donut);
 		wares.add(lolly);
-		Dealer dealer = new Dealer("Mike", wares);
+		Supplier supplier = new Supplier("Mike", wares);
 		
-		assertEquals(wares, dealer.getInventory());
+		assertEquals(wares, supplier.getInventory());
 	}
 
 }

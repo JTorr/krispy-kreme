@@ -3,12 +3,16 @@ package com.juliekevin;
 import java.util.Scanner;
 
 import com.juliekevin.model.Command;
+import com.juliekevin.model.SweetList;
 
 public class Game {
 	static Character player;
 	static String status;
+	static SweetList sweetList;
 
     public static void main(String [] args) {
+    	sweetList = new SweetList();
+    	
     	Game.status = "active";
     	Parser parser = new Parser();
         
@@ -83,5 +87,9 @@ public class Game {
 		sb.append("But don't get caught! The Sugar Addicts are depending on you!\n\n");
 		System.out.println(sb.toString());
 		help();
+	}
+	
+	public static SweetList getSweetList() {
+		return sweetList;
 	}
 }
