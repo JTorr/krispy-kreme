@@ -19,7 +19,7 @@ public class Game {
         storyIntro(Game.player.name);
 
         
-        System.out.println("You are currently at: " + player.getLocation());
+        System.out.println("You are currently at: " + player.getLocation().getName());
         System.out.println(player.getInventory());
 
         while (Game.status.equals("active")) {  
@@ -37,7 +37,7 @@ public class Game {
     
     private static void processInput(Parser parser, Scanner scanner) {
     	try {
-    		System.out.print(player.getLocation() + " > ");
+    		System.out.print(player.getLocation().getName() + " > ");
             String input = scanner.nextLine();
             Command cmd = parser.parse(input);
             

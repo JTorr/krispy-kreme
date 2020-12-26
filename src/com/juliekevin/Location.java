@@ -11,9 +11,14 @@ public class Location {
 	public Location(String name, int incomeLevel) {
 		this.name = name;
 		// Set random income level if not set explicitly
-		this.incomeLevel = (incomeLevel == 0) ? GameUtils.getRand(1,10) : incomeLevel;
+		if(incomeLevel == 0) {
+			this.incomeLevel = GameUtils.getRand(1,10);
+		} else {
+			this.incomeLevel = incomeLevel;
+		}
 		// Set price modifier based on income level
-		this.priceModifier = priceModifiers[incomeLevel -1];
+		this.priceModifier = priceModifiers[this.incomeLevel -1];
+		printLocationDetails();
 	}
 	
 	public void printLocationDetails() {
@@ -37,6 +42,10 @@ public class Location {
 	
 	public String getPriceMod() {
 		return this.priceModifier;
+	}
+	
+	public String getName() {
+		return this.name;
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.juliekevin.model;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class CoinPurse {
 	String money;
@@ -22,9 +23,13 @@ public class CoinPurse {
 			throw new Exception("Purchase price greater than available funds.");
 		}
 	}
+	
+	public static String getLocalPrice(String price, String priceMod) {
+		return new BigDecimal(price).multiply(new BigDecimal(priceMod)).setScale(2, RoundingMode.HALF_UP).toString();
+	}
 
 	public static String getTotalPrice(String price, int quantity) {
-		return new BigDecimal(price).multiply(BigDecimal.valueOf(quantity)).toString();
+		return new BigDecimal(price).multiply(BigDecimal.valueOf(quantity)).setScale(2, RoundingMode.HALF_UP).toString();
 	}
 	
 	public String getMoney() {

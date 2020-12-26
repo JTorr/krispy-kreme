@@ -4,19 +4,20 @@ import com.juliekevin.model.CoinPurse;
 
 public class Character {
 	String name;
-	String location;
+	Location location;
 	CoinPurse wallet = new CoinPurse();
 	Stash stash;
 	
 	public Character(String name, String location) {
 		this.name = name;
-		this.location = location;
+		this.location = new Location(location, 1);
 		this.stash = new Stash();
 	}
 	
-	public String getLocation() {
+	public Location getLocation() {
 		return this.location;
 	}
+
 	
 	public String getInventory() {
 		StringBuilder sb = new StringBuilder("Your inventory currently contains: ");
@@ -28,7 +29,7 @@ public class Character {
 	}
 	
 	public void setLocation(String location) {
-		this.location = location;
+		this.location = new Location(location, 0);
 	}
 
 	public Stash getStash() {

@@ -12,20 +12,21 @@ public class Stash {
 		this.stashList.add(new Sweet("donut", 0, "5.00"));
 	}
 	
-	public void buySweet(String name, int quantity, String location, Character self) {
+	public void buySweet(String name, int quantity, Location location, Character self) {
 		if(this.getSweetIndex(name) > -1) {
 			int index = this.getSweetIndex(name);
 			Sweet sweet = this.stashList.get(index);
+			String price = CoinPurse.getLocalPrice(sweet.getPrice(), location.getPriceMod());
 		
-			String price = CoinPurse.getTotalPrice(sweet.getPrice(), quantity);
+			String total = CoinPurse.getTotalPrice(price, quantity);
 				Sweet newQty = this.stashList.get(index);
 				try {
-					self.wallet.spendMoney(price);
+					self.wallet.spendMoney(total);
 					newQty.setQty(quantity);
 					this.stashList.set(index, newQty);
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
-					System.out.println("Price is " + price);
+					System.out.println("Price is " + total);
 					System.out.println("Your funds: " + self.wallet.getMoney());
 					System.out.println("Insufficient funds!!!");
 					return;
@@ -38,7 +39,7 @@ public class Stash {
 		}
 	}
 	
-	public void sellSweet(String name, int quantity, String location, Character self) {
+	public void sellSweet(String name, int quantity, Location location, Character self) {
 		int index = this.getSweetIndex(name);
 		if(index > -1) {
 			Sweet sweet = this.stashList.get(index);
@@ -47,15 +48,16 @@ public class Stash {
 				System.out.println("You have " + sweet.getQty() + " of " + sweet.getName() + ".");
 				return;
 			}
-			String price = CoinPurse.getTotalPrice(sweet.getPrice(), quantity);
-			self.wallet.earnMoney(price);
+			String price = CoinPurse.getLocalPrice(sweet.getPrice(), location.getPriceMod());
+			String total = CoinPurse.getTotalPrice(price, quantity);
+			self.wallet.earnMoney(total);
 
 			Sweet newQty = this.stashList.get(index);
 			newQty.setQty(sweet.quantity - quantity);
 			this.stashList.set(index, newQty);
 			
 			System.out.println("You sold " + quantity + " of " + sweet.getName());
-			System.out.println("You earned $" + price.toString() + " and now have $" + self.wallet.getMoney());
+			System.out.println("You earned $" + total.toString() + " and now have $" + self.wallet.getMoney());
 		}
 	}
 	

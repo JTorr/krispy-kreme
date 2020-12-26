@@ -11,7 +11,7 @@ class CharacterTest {
 	
 	@Test
 	void getLocation() {
-		assertEquals("Default location", player.getLocation());
+		assertEquals("Default location", player.getLocation().getName());
 	}
 
 	@Test
@@ -23,6 +23,6 @@ class CharacterTest {
 	void setLocation() {
 		Character newPlayer = new Character("New", "Default location");
 		newPlayer.setLocation("Brand new location!");
-		assertEquals("Brand new location!", newPlayer.getLocation());
+		assertEquals("Brand new location!", newPlayer.getLocation().getName());
 	}
 }
