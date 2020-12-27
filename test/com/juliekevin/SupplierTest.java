@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Test;
 import com.juliekevin.model.Supplier;
 
 class SupplierTest {
-	Sweet donut = new Sweet("donut", 5, "10.00");
-	Sweet lolly = new Sweet("lolly", 10, "5.00");
+	Sweet donut = new Sweet("donut", "10.00");
+	Sweet lolly = new Sweet("lolly", "5.00");
 	
 	List<Sweet> wares = new ArrayList<Sweet>();
 	

@@ -11,7 +11,7 @@ public class Character {
 	public Character(String name, String location) {
 		this.name = name;
 		this.location = new Location(location, 1);
-		this.stash = new Stash();
+		this.stash = new Stash(Game.getSweetList());
 	}
 	
 	public Location getLocation() {

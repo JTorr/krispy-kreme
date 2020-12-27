@@ -11,14 +11,14 @@ public class SweetList {
 	List<Sweet> allSweets = new ArrayList<>();
 
 	public SweetList() {
-		this.allSweets.add(new Sweet("caramel", 0, "20.00"));
-		this.allSweets.add(new Sweet("donut", 0, "5.00"));
-		this.allSweets.add(new Sweet("lollipop", 0, "10.00"));
-		this.allSweets.add(new Sweet("icecream", 0, "25.00"));
-		this.allSweets.add(new Sweet("chocolate", 0, "30.00"));
-		this.allSweets.add(new Sweet("cake", 0, "15.00"));
-		this.allSweets.add(new Sweet("gumdrop", 0, "2.00"));
-		this.allSweets.add(new Sweet("cookie", 0, "4.00"));
+		this.allSweets.add(new Sweet("caramel","20.00"));
+		this.allSweets.add(new Sweet("donut", "5.00"));
+		this.allSweets.add(new Sweet("lollipop", "10.00"));
+		this.allSweets.add(new Sweet("icecream", "25.00"));
+		this.allSweets.add(new Sweet("chocolate", "30.00"));
+		this.allSweets.add(new Sweet("cake", "15.00"));
+		this.allSweets.add(new Sweet("gumdrop", "2.00"));
+		this.allSweets.add(new Sweet("cookie", "4.00"));
 	}
 	
 	public Sweet findByName(String name) {
@@ -35,9 +35,9 @@ public class SweetList {
 		List<Sweet> sweetList = new ArrayList<>();
 		for(int i=0; i < qty; i++) {
 			int rand = GameUtils.getRand(0, available.size() - 1);
-			int randQty = GameUtils.getRand(1, 100);
+//			int randQty = GameUtils.getRand(1, 100);
 			Sweet selected = available.get(rand);
-			selected.setQty(randQty);
+//			selected.setQty(randQty);
 			sweetList.add(selected);
 			available.remove(rand);
 		}

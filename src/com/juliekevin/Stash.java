@@ -1,16 +1,20 @@
 package com.juliekevin;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashMap;
 
 import com.juliekevin.model.CoinPurse;
 import com.juliekevin.model.Supplier;
+import com.juliekevin.model.SweetList;
 
 public class Stash {
-	List<Sweet> stashList = new ArrayList<>();
+	HashMap<String, Integer> stashList = new HashMap<>();
+	SweetList allSweets;
 	
-	public Stash() {
-		this.stashList.add(new Sweet("caramel", 0, "20.00"));
-		this.stashList.add(new Sweet("donut", 0, "5.00"));
+	public Stash(SweetList allSweets) {
+		this.stashList.put("caramel", 5);
+		this.stashList.put("donut", 10);
+		this.allSweets = allSweets;
 	}
 	
 	public void buySweet(String name, int quantity, Location location, Character self) {
@@ -27,18 +31,15 @@ public class Stash {
 			return;
 		}
 		
-		int index = this.getSweetIndex(name, this.stashList);
-		
-		if(index > -1) {			
-			Sweet sweet = this.stashList.get(index);
+		if(stashList.containsKey(name)) {			
+			Sweet sweet = allSweets.findByName(name);
 			String price = CoinPurse.getLocalPrice(sweet.getPrice(), location.getPriceMod());
 		
 			String total = CoinPurse.getTotalPrice(price, quantity);
-				Sweet newQty = this.stashList.get(index);
 				try {
 					self.wallet.spendMoney(total);
-					newQty.setQty(quantity);
-					this.stashList.set(index, newQty);
+					int currentQty = this.stashList.get(name);
+					this.stashList.put(name, currentQty + quantity);
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 					System.out.println("Price is " + total);
@@ -55,42 +56,36 @@ public class Stash {
 	}
 	
 	public void sellSweet(String name, int quantity, Location location, Character self) {
-		int index = this.getSweetIndex(name, this.stashList);
-		if(index > -1) {
-			Sweet sweet = this.stashList.get(index);
-			if(sweet.quantity < quantity) {
+		if(stashList.containsKey(name)) {
+			Sweet sweet = allSweets.findByName(name);
+			if(stashList.get(name) < quantity) {
 				System.out.println("Insufficient quantity of " + sweet.getName() + ".");
-				System.out.println("You have " + sweet.getQtyString() + " of " + sweet.getName() + ".");
+				System.out.println("You have " + this.stashList.get(name) + " of " + sweet.getName() + ".");
 				return;
 			}
 			String price = CoinPurse.getLocalPrice(sweet.getPrice(), location.getPriceMod());
 			String total = CoinPurse.getTotalPrice(price, quantity);
 			self.wallet.earnMoney(total);
 
-			Sweet newQty = this.stashList.get(index);
-			newQty.setQty(sweet.quantity - quantity);
-			this.stashList.set(index, newQty);
+			int newQty = stashList.get(name) - quantity;
+			this.stashList.put(name, newQty);
 			
 			System.out.println("You sold " + quantity + " of " + sweet.getName());
 			System.out.println("You earned $" + total.toString() + " and now have $" + self.wallet.getMoney());
+		} else {
+			System.out.println("Sweet does not exist in your inventory.");
 		}
 	}
 	
 	public String toString() {
-		String s = "";
-		for(Sweet sweet: stashList) {
-			s += sweet.getName() + ": " + sweet.getQtyString() + "\n";
-		}
-		return s;
+		return stashList.toString();
 	}
 	
-	private int getSweetIndex(String name, List<Sweet> wares) {
-		for(int i = 0; i < wares.size(); i++) {
-			Sweet testSweet = wares.get(i);
-			if(name.equals(testSweet.getName())) {
-				return i;
-			}
-		}
-		return -1;
-	}	
+	public void addNewItem(String name, int qty) {
+		this.stashList.put(name, qty);
+	}
+	
+	public int getItemQty(String name) {
+		return this.stashList.get(name);
+	}
 }
