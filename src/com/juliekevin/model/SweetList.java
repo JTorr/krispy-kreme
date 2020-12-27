@@ -35,7 +35,9 @@ public class SweetList {
 		List<Sweet> sweetList = new ArrayList<>();
 		for(int i=0; i < qty; i++) {
 			int rand = GameUtils.getRand(0, available.size() - 1);
+			int randQty = GameUtils.getRand(1, 100);
 			Sweet selected = available.get(rand);
+			selected.setQty(randQty);
 			sweetList.add(selected);
 			available.remove(rand);
 		}

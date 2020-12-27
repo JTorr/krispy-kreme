@@ -23,7 +23,11 @@ public class Sweet {
 		return this.name;
 	}
 	
-	public String getQty() {
+	public String getQtyString() {
 		return Integer.toString(this.quantity);
+	}
+	
+	public int getQty() {
+		return this.quantity;
 	}
 }

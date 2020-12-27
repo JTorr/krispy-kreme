@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.juliekevin.model.CoinPurse;
+import com.juliekevin.model.Supplier;
 
 public class Stash {
 	List<Sweet> stashList = new ArrayList<>();
@@ -13,8 +14,22 @@ public class Stash {
 	}
 	
 	public void buySweet(String name, int quantity, Location location, Character self) {
-		if(this.getSweetIndex(name) > -1) {
-			int index = this.getSweetIndex(name);
+		Supplier sup = location.getSupplier();
+		int maxQty = sup.getAvailableQty(name);
+		
+		if(maxQty == 0) {
+			System.out.println("That Sweet is not available from this supplier.");
+			return;
+		}
+		
+		if(quantity > maxQty) {
+			System.out.println("Supplier only has " + maxQty + " available.");
+			return;
+		}
+		
+		int index = this.getSweetIndex(name, this.stashList);
+		
+		if(index > -1) {			
 			Sweet sweet = this.stashList.get(index);
 			String price = CoinPurse.getLocalPrice(sweet.getPrice(), location.getPriceMod());
 		
@@ -40,12 +55,12 @@ public class Stash {
 	}
 	
 	public void sellSweet(String name, int quantity, Location location, Character self) {
-		int index = this.getSweetIndex(name);
+		int index = this.getSweetIndex(name, this.stashList);
 		if(index > -1) {
 			Sweet sweet = this.stashList.get(index);
 			if(sweet.quantity < quantity) {
 				System.out.println("Insufficient quantity of " + sweet.getName() + ".");
-				System.out.println("You have " + sweet.getQty() + " of " + sweet.getName() + ".");
+				System.out.println("You have " + sweet.getQtyString() + " of " + sweet.getName() + ".");
 				return;
 			}
 			String price = CoinPurse.getLocalPrice(sweet.getPrice(), location.getPriceMod());
@@ -64,14 +79,14 @@ public class Stash {
 	public String toString() {
 		String s = "";
 		for(Sweet sweet: stashList) {
-			s += sweet.getName() + ": " + sweet.getQty() + "\n";
+			s += sweet.getName() + ": " + sweet.getQtyString() + "\n";
 		}
 		return s;
 	}
 	
-	private int getSweetIndex(String name) {
-		for(int i = 0; i < stashList.size(); i++) {
-			Sweet testSweet = stashList.get(i);
+	private int getSweetIndex(String name, List<Sweet> wares) {
+		for(int i = 0; i < wares.size(); i++) {
+			Sweet testSweet = wares.get(i);
 			if(name.equals(testSweet.getName())) {
 				return i;
 			}

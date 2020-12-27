@@ -28,7 +28,17 @@ public class Supplier {
 	
 	public void printWares() {
 		for(Sweet s : wares) {
-			System.out.println(s.getName() + ": " + s.getQty());
+			System.out.println(s.getName() + ": " + s.getQtyString());
 		}
+	}
+	
+	public int getAvailableQty(String sweetName) {
+		int qty = 0;
+		for(Sweet s : wares) {
+			if(s.getName().equalsIgnoreCase(sweetName)) {
+				qty = s.getQty();
+			}
+		}
+		return qty;
 	}
 }
