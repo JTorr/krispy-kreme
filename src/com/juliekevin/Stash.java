@@ -17,15 +17,15 @@ public class Stash {
 	
 	public void buySweet(String name, int quantity, Location location, Character self) {
 		Supplier sup = location.getSupplier();
-		int maxQty = sup.getAvailableQty(name);
+		int supplierQty = sup.getAvailableQty(name);
 		
-		if(maxQty == 0) {
+		if(supplierQty == 0) {
 			System.out.println("That Sweet is not available from this supplier.");
 			return;
 		}
 		
-		if(quantity > maxQty) {
-			System.out.println("Supplier only has " + maxQty + " available.");
+		if(quantity > supplierQty) {
+			System.out.println("Supplier only has " + supplierQty + " available.");
 			return;
 		}
 		
@@ -42,6 +42,7 @@ public class Stash {
 					if(stashList.containsKey(name)) {
 						currentQty = this.stashList.get(name);
 					}
+					supplierStash.setQty(name, supplierQty - quantity);
 					this.stashList.put(name, currentQty + quantity);
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
@@ -94,6 +95,10 @@ public class Stash {
 	
 	public Boolean containsItem(String sweetName) {
 		return stashList.containsKey(sweetName);
+	}
+	
+	public void setQty(String sweetName, int qty) {
+		this.stashList.put(sweetName, qty);
 	}
 
 }
