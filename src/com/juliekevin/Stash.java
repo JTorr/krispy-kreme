@@ -1,6 +1,4 @@
 package com.juliekevin;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.HashMap;
 
 import com.juliekevin.model.CoinPurse;
@@ -31,14 +29,19 @@ public class Stash {
 			return;
 		}
 		
-		if(stashList.containsKey(name)) {			
+		Stash supplierStash = sup.getInventory();
+		
+		if(supplierStash.containsItem(name)) {			
 			Sweet sweet = allSweets.findByName(name);
 			String price = CoinPurse.getLocalPrice(sweet.getPrice(), location.getPriceMod());
 		
 			String total = CoinPurse.getTotalPrice(price, quantity);
 				try {
 					self.wallet.spendMoney(total);
-					int currentQty = this.stashList.get(name);
+					int currentQty = 0;
+					if(stashList.containsKey(name)) {
+						currentQty = this.stashList.get(name);
+					}
 					this.stashList.put(name, currentQty + quantity);
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
@@ -88,4 +91,10 @@ public class Stash {
 	public int getItemQty(String name) {
 		return this.stashList.get(name);
 	}
+	
+	public Boolean containsItem(String sweetName) {
+		return stashList.containsKey(sweetName);
+	}
+
 }
+

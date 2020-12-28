@@ -28,8 +28,8 @@ public class Supplier {
 		}
 	}
 	
-	public List<Sweet> getInventory() {
-		return this.wares;
+	public Stash getInventory() {
+		return this.stash;
 	}
 	
 	public void printWares() {
@@ -39,12 +39,10 @@ public class Supplier {
 	}
 	
 	public int getAvailableQty(String sweetName) {
-		int qty = 0;
-		for(Sweet s : wares) {
-			if(s.getName().equalsIgnoreCase(sweetName)) {
-				qty = stash.getItemQty(sweetName);
-			}
+		if(stash.containsItem(sweetName)) {
+			return stash.getItemQty(sweetName);
+		} else {
+			return 0;
 		}
-		return qty;
 	}
 }
