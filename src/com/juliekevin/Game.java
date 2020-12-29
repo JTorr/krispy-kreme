@@ -63,7 +63,7 @@ public class Game {
             	handler.buySweet(cmd.getNoun(), cmd.getQty());
             	break;
             case "sell":
-            	player.getStash().sellSweet(cmd.getNoun(), cmd.getQty(), player.getLocation(), player);
+            	handler.sellSweet(cmd.getNoun(), cmd.getQty());
             	break;
             case "help":
             	help();

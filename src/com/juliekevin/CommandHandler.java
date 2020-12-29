@@ -57,4 +57,28 @@ public class CommandHandler {
 		}
 	}
 	
+	public void sellSweet(String name, int quantity) {
+		Location location = this.self.getLocation();
+		Stash stashList = this.self.getStash();
+		
+		if(stashList.containsItem(name)) {
+			Sweet sweet = Game.sweetList.findByName(name);
+			if(stashList.getItemQty(name) < quantity) {
+				System.out.println("Insufficient quantity of " + sweet.getName() + ".");
+				System.out.println("You have " + stashList.getItemQty(name) + " of " + sweet.getName() + ".");
+				return;
+			}
+			String price = CoinPurse.getLocalPrice(sweet.getPrice(), location.getPriceMod());
+			String total = CoinPurse.getTotalPrice(price, quantity);
+			self.wallet.earnMoney(total);
+
+			int newQty = stashList.getItemQty(name) - quantity;
+			stashList.addNewItem(name, newQty);
+			
+			System.out.println("You sold " + quantity + " of " + sweet.getName());
+			System.out.println("You earned $" + total.toString() + " and now have $" + self.wallet.getMoney());
+		} else {
+			System.out.println("Sweet does not exist in your inventory.");
+		}
+	}
 }
