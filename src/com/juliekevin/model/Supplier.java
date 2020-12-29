@@ -10,7 +10,7 @@ import utils.GameUtils;
 
 public class Supplier {
 	SweetList allSweets = Game.getSweetList();
-	Stash stash = new Stash(allSweets);
+	Stash stash;
 	List<Sweet> wares;
 	String name;
 	
@@ -18,6 +18,7 @@ public class Supplier {
 	public Supplier(String name, List<Sweet> wares) {
 		this.name = name;
 		this.wares = wares;
+		this.stash = new Stash(allSweets);
 		if(this.wares == null) {
 			int waresQty = GameUtils.getRand(1, 3);
 			this.wares = allSweets.selectRandom(waresQty);
@@ -34,13 +35,13 @@ public class Supplier {
 	
 	public void printWares() {
 		for(Sweet s : wares) {
-			System.out.println(s.getName() + ": " + stash.getItemQty(s.getName()));
+			System.out.println(s.getName() + ": " + this.stash.getItemQty(s.getName()));
 		}
 	}
 	
 	public int getAvailableQty(String sweetName) {
-		if(stash.containsItem(sweetName)) {
-			return stash.getItemQty(sweetName);
+		if(this.stash.containsItem(sweetName)) {
+			return this.stash.getItemQty(sweetName);
 		} else {
 			return 0;
 		}

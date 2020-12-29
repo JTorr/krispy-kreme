@@ -12,6 +12,7 @@ public class Game {
 
     public static void main(String [] args) {
     	sweetList = new SweetList();
+        
     	
     	Game.status = "active";
     	Parser parser = new Parser();
@@ -20,6 +21,7 @@ public class Game {
         Scanner scanner = new Scanner(System.in);
         
         Game.player = new Character(scanner.nextLine(), "Secret Sugar Factory");
+        CommandHandler handler = new CommandHandler(player);
         storyIntro(Game.player.name);
 
         
@@ -27,7 +29,7 @@ public class Game {
         System.out.println(player.getInventory());
 
         while (Game.status.equals("active")) {  
-        	processInput(parser, scanner);                 
+        	processInput(parser, scanner, handler);                 
         }
             
         if (Game.status.equals("won")) {
@@ -39,7 +41,7 @@ public class Game {
         }
     }
     
-    private static void processInput(Parser parser, Scanner scanner) {
+    private static void processInput(Parser parser, Scanner scanner, CommandHandler handler) {
     	try {
     		System.out.print(player.getLocation().getName() + " > ");
             String input = scanner.nextLine();
@@ -58,7 +60,7 @@ public class Game {
             	System.out.println(player.getInventory());
             	break;
             case "buy":
-            	player.getStash().buySweet(cmd.getNoun(), cmd.getQty(), player.getLocation(), player);
+            	handler.buySweet(cmd.getNoun(), cmd.getQty());
             	break;
             case "sell":
             	player.getStash().sellSweet(cmd.getNoun(), cmd.getQty(), player.getLocation(), player);
