@@ -9,7 +9,7 @@ import com.juliekevin.Sweet;
 import utils.GameUtils;
 
 public class Supplier {
-	SweetList allSweets = Game.getSweetList();
+	SweetList allSweets;
 	Stash stash;
 	List<Sweet> wares;
 	String name;
@@ -18,14 +18,14 @@ public class Supplier {
 	public Supplier(String name, List<Sweet> wares) {
 		this.name = name;
 		this.wares = wares;
-		this.stash = new Stash(allSweets);
+		this.stash = new Stash();
 		if(this.wares == null) {
 			int waresQty = GameUtils.getRand(1, 3);
-			this.wares = allSweets.selectRandom(waresQty);
-			for(Sweet sweet : this.wares) {
-				int randQty = GameUtils.getRand(1, 100);
-				stash.addNewItem(sweet.getName(), randQty);
-			}
+			this.wares = Game.getSweetList().selectRandom(waresQty);
+		}
+		for(Sweet sweet : this.wares) {
+			int randQty = GameUtils.getRand(1, 100);
+			stash.addNewItem(sweet.getName(), randQty);
 		}
 	}
 	

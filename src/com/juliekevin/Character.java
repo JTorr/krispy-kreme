@@ -1,21 +1,26 @@
 package com.juliekevin;
 
+import com.juliekevin.model.Area;
 import com.juliekevin.model.CoinPurse;
 
 public class Character {
 	String name;
-	Location location;
+	Area area;
 	CoinPurse wallet = new CoinPurse();
 	Stash stash;
 	
-	public Character(String name, String location) {
+	public Character(String name, String areaName) {
 		this.name = name;
-		this.location = new Location(location, 1);
-		this.stash = new Stash(Game.getSweetList());
+		this.area = new Area(areaName, null);
+		this.stash = new Stash();
 	}
 	
 	public Location getLocation() {
-		return this.location;
+		return this.area.getCurrentLocation();
+	}
+	
+	public Area getArea() {
+		return this.area;
 	}
 
 	
@@ -26,10 +31,6 @@ public class Character {
 	    sb.append(wallet.getMoney());
 	    sb.append(".");
 	    return sb.toString();
-	}
-	
-	public void setLocation(String location) {
-		this.location = new Location(location, 0);
 	}
 
 	public Stash getStash() {

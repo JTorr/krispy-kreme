@@ -1,5 +1,6 @@
 package com.juliekevin;
 
+import com.juliekevin.model.Area;
 import com.juliekevin.model.CoinPurse;
 import com.juliekevin.model.Supplier;
 
@@ -80,5 +81,11 @@ public class CommandHandler {
 		} else {
 			System.out.println("Sweet does not exist in your inventory.");
 		}
+	}
+	
+	public void visitLocation(String loc) {
+		System.out.println("Going to " + loc);
+		Area area = self.getArea();
+        area.visitLocation(loc);
 	}
 }

@@ -1,14 +1,8 @@
 package com.juliekevin;
 import java.util.HashMap;
-import com.juliekevin.model.SweetList;
 
 public class Stash {
 	HashMap<String, Integer> stashList = new HashMap<>();
-	SweetList allSweets;
-	
-	public Stash(SweetList allSweets) {
-		this.allSweets = allSweets;
-	}
 	
 	public String toString() {
 		return stashList.toString();

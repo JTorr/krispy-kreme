@@ -8,11 +8,9 @@ import com.juliekevin.model.SweetList;
 public class Game {
 	static Character player;
 	static String status;
-	static SweetList sweetList;
+	static SweetList sweetList = new SweetList();;
 
-    public static void main(String [] args) {
-    	sweetList = new SweetList();
-        
+    public static void main(String [] args) {      
     	
     	Game.status = "active";
     	Parser parser = new Parser();
@@ -53,8 +51,7 @@ public class Game {
                 Game.status = "quit";
                 break;
             case "go":
-            	System.out.println("Going to " + cmd.getNoun());
-                player.setLocation(cmd.getNoun());
+            	handler.visitLocation(cmd.getNoun());
                 break;
             case "inventory":
             	System.out.println(player.getInventory());

@@ -20,7 +20,7 @@ class SupplierTest {
 		wares.add(lolly);
 		Supplier supplier = new Supplier("Mike", wares);
 		
-		assertEquals(wares, supplier.getInventory());
+		assertTrue(supplier.getInventory().containsItem("donut"));
 	}
 
 }
