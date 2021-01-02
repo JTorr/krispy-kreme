@@ -9,7 +9,6 @@ import com.juliekevin.Sweet;
 import utils.GameUtils;
 
 public class Supplier {
-	SweetList allSweets;
 	Stash stash;
 	List<Sweet> wares;
 	String name;

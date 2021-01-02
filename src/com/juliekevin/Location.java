@@ -1,5 +1,6 @@
 package com.juliekevin;
 
+import com.juliekevin.model.Junkie;
 import com.juliekevin.model.Supplier;
 
 import utils.GameUtils;
@@ -9,6 +10,7 @@ public class Location {
 	String priceModifier;
 	int incomeLevel;
 	Supplier supplier;
+	Junkie junkie;
 	String priceModifiers[] = new String[] {"0.75", "0.80", "0.85", "0.90", "0.95", "1.00", "1.05", "1.15", "1.25", "1.35"};
 	
 	public Location(String name, int incomeLevel) {
@@ -22,7 +24,8 @@ public class Location {
 		
 		// Set price modifier based on income level
 		this.priceModifier = priceModifiers[this.incomeLevel -1];
-		this.supplier = new Supplier("Supplier", null, this.priceModifier);
+		this.supplier = new Supplier("Don Juan", null, this.priceModifier);
+		this.junkie = new Junkie("Bob the Sweet Junkie", this.incomeLevel);
 	}
 	
 	public void printLocationDetails() {
@@ -30,6 +33,7 @@ public class Location {
 		System.out.println("This area is " + this.locationType());
 		System.out.println("This location has a supplier named " + supplier.getSupplierName() + ".");
 		this.supplier.printWares();
+		this.junkie.printBuyRequest();
 	}
 	
 	private String locationType() {
