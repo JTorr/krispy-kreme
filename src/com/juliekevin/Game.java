@@ -63,20 +63,19 @@ public class Game {
             	handler.sellSweet(cmd.getNoun(), cmd.getQty());
             	break;
             case "help":
-            	help();
+            	handler.viewItem("help");
+            	break;
+            case "view":
+            	handler.viewItem(cmd.getNoun());
             	break;
             default:
-            	help();
+            	handler.viewItem("help");
             }
         } catch(Exception e) {
         	System.out.println(e.getMessage());
         }
     }
-    
-	private static void help() {
-		System.out.println("Enter commands in the following format: verb + noun (optional) + quantity(optional)");
-		System.out.println("Example commands:\n 'go MyCity',\n 'buy donuts 3',\n 'sell 3 donuts',\n 'inventory',\n 'help'\n");
-	}
+
 	
 	private static void storyIntro(String name) {
 		StringBuilder sb = new StringBuilder("In a world where Sugar is outlawed, Our Hero, ");
@@ -84,8 +83,8 @@ public class Game {
 		sb.append(" is the only hope!\n");
 		sb.append("Buy and sell Candy, Donuts and other forbidden treats.\n");
 		sb.append("But don't get caught! The Sugar Addicts are depending on you!\n\n");
+		sb.append("Type 'help' to see instructions.");
 		System.out.println(sb.toString());
-		help();
 	}
 	
 	public static SweetList getSweetList() {

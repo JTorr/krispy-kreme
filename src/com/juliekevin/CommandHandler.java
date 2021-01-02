@@ -88,4 +88,33 @@ public class CommandHandler {
 		Area area = self.getArea();
         area.visitLocation(loc);
 	}
+	
+	
+	public void viewItem(String noun) {
+		if(noun.matches("supplier|good|price")) {
+			viewSupplier();
+		} else if(noun.matches("inventory|stash")) {
+			printInventory();
+		} else if(noun.matches("location")) {
+			self.getLocation().printLocationDetails();
+		} else if(noun.matches("help")) {
+			printHelp();
+		} else {
+			System.out.println("Command not recognized.");
+			printHelp();
+		}
+	}
+	
+	private void printInventory() {
+		System.out.println(self.getInventory());
+	}
+	
+	private void printHelp() {
+		System.out.println("Enter commands in the following format: verb + noun (optional) + quantity(optional)");
+		System.out.println("Example commands:\n 'go MyCity',\n 'buy donuts 3',\n 'sell 3 donuts',\n 'inventory',\n 'help'\n");
+	}
+	
+	private void viewSupplier() {
+		this.self.getLocation().checkItemsForSale();
+	}
 }

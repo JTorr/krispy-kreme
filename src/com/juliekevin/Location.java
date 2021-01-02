@@ -28,7 +28,7 @@ public class Location {
 	public void printLocationDetails() {
 		System.out.println("Welcome to " + this.name);
 		System.out.println("This area is " + this.locationType());
-		System.out.println("The supplier at this location has the following available: ");
+		System.out.println("This location has a supplier named " + supplier.getSupplierName() + ".");
 		this.supplier.printWares();
 	}
 	
@@ -56,5 +56,9 @@ public class Location {
 	
 	public Supplier getSupplier() {
 		return this.supplier;
+	}
+	
+	public void checkItemsForSale() {
+		this.supplier.printWares();
 	}
 }
