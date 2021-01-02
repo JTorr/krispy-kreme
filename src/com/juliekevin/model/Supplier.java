@@ -13,12 +13,14 @@ public class Supplier {
 	Stash stash;
 	List<Sweet> wares;
 	String name;
+	String priceMod;
 	
 
-	public Supplier(String name, List<Sweet> wares) {
+	public Supplier(String name, List<Sweet> wares, String priceMod) {
 		this.name = name;
 		this.wares = wares;
 		this.stash = new Stash();
+		this.priceMod = priceMod;
 		if(this.wares == null) {
 			int waresQty = GameUtils.getRand(1, 3);
 			this.wares = Game.getSweetList().selectRandom(waresQty);
@@ -37,8 +39,12 @@ public class Supplier {
 		System.out.println("Items available for purchase: ");
 		for(Sweet s : wares) {
 			int qty = this.stash.getItemQty(s.getName());
-			System.out.println(s.getName() + ": $" + s.getPrice() + " (" + qty + ")");
+			System.out.println(s.getName() + ": $" + getSupplierPrice(s) + " (" + qty + ")");
 		}
+	}
+	
+	public String getSupplierPrice(Sweet sweet) {
+		return CoinPurse.getLocalPrice(sweet.getPrice(), this.priceMod);
 	}
 	
 	public String getSupplierName() {

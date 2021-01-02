@@ -20,9 +20,9 @@ public class Location {
 			this.incomeLevel = incomeLevel;
 		}
 		
-		this.supplier = new Supplier("Supplier", null);
 		// Set price modifier based on income level
 		this.priceModifier = priceModifiers[this.incomeLevel -1];
+		this.supplier = new Supplier("Supplier", null, this.priceModifier);
 	}
 	
 	public void printLocationDetails() {
