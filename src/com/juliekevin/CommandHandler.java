@@ -78,6 +78,12 @@ public class CommandHandler {
 			System.out.println("Sweet Junkies at this location are not interested in that item / quantity.");
 			return;
 		}
+		
+		// Sale will be unsuccessful if Buyer is under-cover cop
+		Boolean successfulSale = location.junkie.purchaseSweet(quantity);
+		if(!successfulSale) {
+			return;
+		}
 
 		String price = CoinPurse.getLocalPrice(sweet.getPrice(), location.getPriceMod());
 		String total = CoinPurse.getTotalPrice(price, quantity);
@@ -85,8 +91,7 @@ public class CommandHandler {
 
 		int newQty = stashList.getItemQty(name) - quantity;
 		stashList.addNewItem(name, newQty);
-		
-		location.junkie.purchaseSweet(quantity);
+
 
 		System.out.println("You sold " + quantity + " of " + sweet.getName());
 		System.out.println("You earned $" + total.toString() + " and now have $" + self.wallet.getMoney());

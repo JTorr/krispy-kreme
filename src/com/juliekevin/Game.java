@@ -16,14 +16,14 @@ public class Game {
 	static SweetList sweetList = new SweetList();;
 	static String filePath = new File("").getAbsolutePath();
 	static List<String> NameList;
+	public static Scanner scanner = new Scanner(System.in);
 
     public static void main(String [] args) {  
     	Game.createNameList();
     	Game.status = "active";
     	Parser parser = new Parser();
         
-        System.out.println("Welcome to Krispy Kreme. What is your name?");
-        Scanner scanner = new Scanner(System.in);
+        System.out.println("Welcome to Krispy Kreme. What is your name?");       
         
         Game.player = new Character(scanner.nextLine(), "Secret Sugar Factory");
         CommandHandler handler = new CommandHandler(player);
@@ -109,6 +109,10 @@ public class Game {
 	
 	public static List<String> readNameList() {
 		return Game.NameList;
+	}
+	
+	public static Character getPlayer() {
+		return player;
 	}
 	
 	private static void createNameList() {

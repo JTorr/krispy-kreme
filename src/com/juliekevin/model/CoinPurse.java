@@ -35,4 +35,10 @@ public class CoinPurse {
 	public String getMoney() {
 		return this.money;
 	}
+	
+	public void deductFine(String amount) {
+		BigDecimal current = new BigDecimal(this.money);
+		BigDecimal amt = new BigDecimal(amount);
+		this.money = current.subtract(amt).toString();
+	}
 }

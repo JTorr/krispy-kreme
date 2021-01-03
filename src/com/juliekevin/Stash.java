@@ -23,6 +23,9 @@ public class Stash {
 	public void setQty(String sweetName, int qty) {
 		this.stashList.put(sweetName, qty);
 	}
-
+	
+	public void resetInventory() {
+		this.stashList = new HashMap<>();
+	}
 }
 

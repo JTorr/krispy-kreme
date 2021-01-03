@@ -2,6 +2,8 @@ package com.juliekevin;
 
 import com.juliekevin.model.Junkie;
 import com.juliekevin.model.Supplier;
+import com.juliekevin.model.UndercoverCop;
+import com.juliekevin.model.Buyer;
 
 import utils.GameUtils;
 
@@ -10,7 +12,7 @@ public class Location {
 	String priceModifier;
 	int incomeLevel;
 	Supplier supplier;
-	Junkie junkie;
+	Buyer junkie;
 	String priceModifiers[] = new String[] {"0.75", "0.80", "0.85", "0.90", "0.95", "1.00", "1.05", "1.15", "1.25", "1.35"};
 	
 	public Location(String name, int incomeLevel) {
@@ -25,7 +27,14 @@ public class Location {
 		// Set price modifier based on income level
 		this.priceModifier = priceModifiers[this.incomeLevel -1];
 		this.supplier = new Supplier("Don " + GameUtils.getRandName(), null, this.priceModifier);
-		this.junkie = new Junkie(GameUtils.getRandName() + " the Sweet Junkie", this.incomeLevel);
+		
+		// Determine if buyer is an Undercover Cop or normal Junkie
+		int rand = GameUtils.getRand(1, 10);
+		if(rand == 7) {
+			this.junkie = new UndercoverCop(GameUtils.getRandName() + " the Sweet Junkie", this.incomeLevel);
+		} else {
+			this.junkie = new Junkie(GameUtils.getRandName() + " the Sweet Junkie", this.incomeLevel);
+		}
 	}
 	
 	public void printLocationDetails() {
