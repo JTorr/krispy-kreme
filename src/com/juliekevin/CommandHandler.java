@@ -123,6 +123,15 @@ public class CommandHandler {
 		System.out.println("Enter commands in the following format: verb + noun (optional) + quantity(optional)");
 		System.out.println(
 				"Example commands:\n 'go MyCity',\n 'buy donuts 3',\n 'sell 3 donuts',\n 'inventory',\n 'help'\n");
+		System.out.println("\nCommon actions include: ");
+		System.out.println("- View help");
+    	System.out.println("- View inventory");
+    	System.out.println("- View location");
+    	System.out.println("- View supplier");
+    	System.out.println("- View junkie");
+    	System.out.println("- Go (location)");
+    	System.out.println("- Buy (item)");
+    	System.out.println("- Sell (item)");
 	}
 
 	private void viewSupplier() {

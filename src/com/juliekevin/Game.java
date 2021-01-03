@@ -24,7 +24,7 @@ public class Game {
 
         
         System.out.println("You are currently at: " + player.getLocation().getName());
-        System.out.println(player.getInventory());
+        printInitialHelp();
 
         while (Game.status.equals("active")) {  
         	processInput(parser, scanner, handler);                 
@@ -37,6 +37,18 @@ public class Game {
         	scanner.close();
             System.out.println("Sorry you have lost.  Better luck next time.");
         }
+    }
+    
+    private static void printInitialHelp() {
+    	System.out.println("What would you like to do?");
+    	System.out.println("- View help");
+    	System.out.println("- View inventory");
+    	System.out.println("- View location");
+    	System.out.println("- View supplier");
+    	System.out.println("- View junkie");
+    	System.out.println("- Go (location)");
+    	System.out.println("- Buy (item)");
+    	System.out.println("- Sell (item)\n");
     }
     
     private static void processInput(Parser parser, Scanner scanner, CommandHandler handler) {
@@ -83,7 +95,6 @@ public class Game {
 		sb.append(" is the only hope!\n");
 		sb.append("Buy and sell Candy, Donuts and other forbidden treats.\n");
 		sb.append("But don't get caught! The Sugar Addicts are depending on you!\n\n");
-		sb.append("Type 'help' to see instructions.");
 		System.out.println(sb.toString());
 	}
 	
