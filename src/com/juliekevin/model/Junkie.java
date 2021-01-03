@@ -37,6 +37,7 @@ public class Junkie {
 	public void printBuyRequest() {
 		System.out.print(this.name + " is looking to buy " + this.desiredQty + " of " + this.desiredSweet.getName());
 		System.out.println(" and is willing to pay $" + getMaxPrice());
+		System.out.println("-------\n");
 	}
 	
 	public Boolean willAcceptPurchase(String sweetName, int qty) {

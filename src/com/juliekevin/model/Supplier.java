@@ -35,11 +35,12 @@ public class Supplier {
 	}
 	
 	public void printWares() {
-		System.out.println("Items available for purchase: ");
+		System.out.println(this.name + " has these items available for purchase: ");
 		for(Sweet s : wares) {
 			int qty = this.stash.getItemQty(s.getName());
 			System.out.println(s.getName() + ": $" + getSupplierPrice(s) + " (" + qty + ")");
 		}
+		System.out.println("-------\n");
 	}
 	
 	public String getSupplierPrice(Sweet sweet) {

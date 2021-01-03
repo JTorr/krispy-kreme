@@ -93,7 +93,7 @@ public class CommandHandler {
 	}
 
 	public void visitLocation(String loc) {
-		System.out.println("Going to " + loc);
+		System.out.println("Going to " + loc + "\n");
 		Area area = self.getArea();
 		area.visitLocation(loc);
 	}

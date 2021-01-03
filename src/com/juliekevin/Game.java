@@ -22,8 +22,6 @@ public class Game {
         CommandHandler handler = new CommandHandler(player);
         storyIntro(Game.player.name);
 
-        
-        System.out.println("You are currently at: " + player.getLocation().getName());
         printInitialHelp();
 
         while (Game.status.equals("active")) {  
