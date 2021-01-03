@@ -24,8 +24,8 @@ public class Location {
 		
 		// Set price modifier based on income level
 		this.priceModifier = priceModifiers[this.incomeLevel -1];
-		this.supplier = new Supplier("Don Juan", null, this.priceModifier);
-		this.junkie = new Junkie("Bob the Sweet Junkie", this.incomeLevel);
+		this.supplier = new Supplier("Don " + GameUtils.getRandName(), null, this.priceModifier);
+		this.junkie = new Junkie(GameUtils.getRandName() + " the Sweet Junkie", this.incomeLevel);
 	}
 	
 	public void printLocationDetails() {

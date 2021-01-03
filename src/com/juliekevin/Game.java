@@ -1,17 +1,24 @@
 package com.juliekevin;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import com.juliekevin.model.Command;
 import com.juliekevin.model.SweetList;
 
+import utils.CsvReader;
+
 public class Game {
 	static Character player;
 	static String status;
 	static SweetList sweetList = new SweetList();;
+	static String filePath = new File("").getAbsolutePath();
+	static List<String> NameList;
 
-    public static void main(String [] args) {      
-    	
+    public static void main(String [] args) {  
+    	Game.createNameList();
     	Game.status = "active";
     	Parser parser = new Parser();
         
@@ -98,5 +105,19 @@ public class Game {
 	
 	public static SweetList getSweetList() {
 		return sweetList;
+	}
+	
+	public static List<String> readNameList() {
+		return Game.NameList;
+	}
+	
+	private static void createNameList() {
+    	try {
+    		NameList = CsvReader.readCsv(filePath.concat("/src/utils/NameData.csv"));
+    	} catch(Exception e) {
+    		NameList = new ArrayList<String>();
+    		NameList.add("Bob");
+    		System.out.println("Failed to read CSV file containing random names.");
+    	}
 	}
 }
