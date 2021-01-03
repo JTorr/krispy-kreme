@@ -65,4 +65,8 @@ public class Location {
 	public void checkItemsForSale() {
 		this.supplier.printWares();
 	}
+	
+	public Boolean junkieWillBuy(String sweetName, int qty) {
+		return this.junkie.willAcceptPurchase(sweetName, qty);
+	}
 }

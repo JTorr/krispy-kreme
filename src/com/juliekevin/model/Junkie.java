@@ -36,7 +36,18 @@ public class Junkie {
 	
 	public void printBuyRequest() {
 		System.out.print(this.name + " is looking to buy " + this.desiredQty + " of " + this.desiredSweet.getName());
-		System.out.println("and is willing to pay $" + getMaxPrice());
+		System.out.println(" and is willing to pay $" + getMaxPrice());
+	}
+	
+	public Boolean willAcceptPurchase(String sweetName, int qty) {
+		if(!sweetName.equalsIgnoreCase(this.desiredSweet.getName()) || qty > this.desiredQty) {
+			return false;
+		}
+		return true;
+	}
+	
+	public void purchaseSweet(int qty) {
+		this.desiredQty -= qty;
 	}
 	
 	private void setPriceMod() {
