@@ -9,7 +9,7 @@ import com.juliekevin.Location;
 public class Area {
 	String name;
 	HashMap<String, Integer> locationLookup = new HashMap<>();
-	Jail jail = new Jail();
+	PoliceForce popo = new PoliceForce();
 	
 	List<Location> visited = new ArrayList<>();
 	int currentIndex = 0;
@@ -47,8 +47,8 @@ public class Area {
 		return this.currentLoc;
 	}
 	
-	public Jail getJail() {
-		return this.jail;
+	public PoliceForce getPoliceForce() {
+		return this.popo;
 	}
 	
 	private Location addLocation(String name, int level) {

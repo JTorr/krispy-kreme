@@ -2,13 +2,16 @@ package com.juliekevin;
 
 import com.juliekevin.model.Area;
 import com.juliekevin.model.CoinPurse;
+import com.juliekevin.model.EventGenerator;
 import com.juliekevin.model.Supplier;
 
 public class CommandHandler {
 	Character self;
+	EventGenerator EG;
 
 	public CommandHandler(Character self) {
 		this.self = self;
+		this.EG = new EventGenerator(self);
 	}
 
 	public void buySweet(String name, int quantity) {
@@ -101,6 +104,7 @@ public class CommandHandler {
 		System.out.println("Going to " + loc + "\n");
 		Area area = self.getArea();
 		area.visitLocation(loc);
+		EG.checkForEvents();
 	}
 
 	public void viewItem(String noun) {

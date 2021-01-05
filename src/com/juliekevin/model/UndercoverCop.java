@@ -10,8 +10,9 @@ public class UndercoverCop extends Buyer {
 	}
 	
 	public Boolean purchaseSweet(int qty) {
+		System.out.println("Oh no! " + this.name + " is an Undercover Cop!");
 		Character player = Game.getPlayer();
-		player.getArea().getJail().arrestSeller(this.name, this.incomeLevel);
+		player.getArea().getPoliceForce().arrestCharacter(this.incomeLevel, true);
 		return false;
 	}
 }
