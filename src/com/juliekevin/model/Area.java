@@ -9,6 +9,7 @@ import com.juliekevin.Location;
 public class Area {
 	String name;
 	HashMap<String, Integer> locationLookup = new HashMap<>();
+	Jail jail = new Jail();
 	
 	List<Location> visited = new ArrayList<>();
 	int currentIndex = 0;
@@ -44,6 +45,10 @@ public class Area {
 	
 	public Location getCurrentLocation() {
 		return this.currentLoc;
+	}
+	
+	public Jail getJail() {
+		return this.jail;
 	}
 	
 	private Location addLocation(String name, int level) {

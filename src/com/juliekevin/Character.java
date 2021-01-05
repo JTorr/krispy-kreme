@@ -9,6 +9,7 @@ public class Character {
 	CoinPurse wallet = new CoinPurse();
 	Stash stash;
 	int crimeCount;
+	int copHeat;
 	
 	public Character(String name, String areaName) {
 		this.name = name;
@@ -49,5 +50,13 @@ public class Character {
 	
 	public CoinPurse getWallet() {
 		return this.wallet;
+	}
+	
+	public int getCopHeat() {
+		return this.copHeat;
+	}
+	
+	public void incrementCopHeat(int amt) {
+		this.copHeat += amt;
 	}
 }

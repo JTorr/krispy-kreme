@@ -30,7 +30,9 @@ public class Location {
 		
 		// Determine if buyer is an Undercover Cop or normal Junkie
 		int rand = GameUtils.getRand(1, 10);
+		System.out.println("RAND: " + rand);
 		if(rand == 7) {
+			System.out.println("Undercover COP!!!");
 			this.junkie = new UndercoverCop(GameUtils.getRandName() + " the Sweet Junkie", this.incomeLevel);
 		} else {
 			this.junkie = new Junkie(GameUtils.getRandName() + " the Sweet Junkie", this.incomeLevel);
