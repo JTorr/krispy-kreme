@@ -46,6 +46,7 @@ public class CommandHandler {
 				}
 				supplierStash.setQty(name, supplierQty - quantity);
 				stashList.addNewItem(name, currentQty + quantity);
+				stashList.setLastPurchasePrice(name, price);
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 				System.out.println("Price is " + total);

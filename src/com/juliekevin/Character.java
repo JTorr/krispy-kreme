@@ -36,7 +36,7 @@ public class Character {
 
 	
 	public String getInventory() {
-		StringBuilder sb = new StringBuilder("Your inventory currently contains: ");
+		StringBuilder sb = new StringBuilder("Your inventory currently contains: \n");
 		sb.append(this.getStash().toString());
 	    sb.append("\nYou have $");
 	    sb.append(wallet.getMoney());
