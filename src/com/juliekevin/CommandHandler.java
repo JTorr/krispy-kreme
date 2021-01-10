@@ -1,8 +1,11 @@
 package com.juliekevin;
 
+import java.util.List;
+
 import com.juliekevin.model.Area;
 import com.juliekevin.model.CoinPurse;
 import com.juliekevin.model.EventGenerator;
+import com.juliekevin.model.Gang;
 import com.juliekevin.model.Supplier;
 
 public class CommandHandler {
@@ -60,6 +63,37 @@ public class CommandHandler {
 		} else {
 			System.out.println("Sweet name not found.");
 		}
+	}
+	
+	public void getItem(String noun, int qty) {
+		if(noun.equalsIgnoreCase("loan")) {
+			getLoan(qty);
+		} else {
+			System.out.println("'Get' command not recognized.");
+		}
+	}
+	
+	public void getLoan(int amt) {
+		List<Gang> areaGangs = self.getArea().getGangs();
+		if(areaGangs.size() < 1) {
+			System.out.println("Sorry, there are no gangs available to make you a loan.");
+			return;
+		}
+		System.out.println("Which gang do you want to request a loan from?");
+		for(int i=0; i < areaGangs.size(); i++) {
+			Gang gang = areaGangs.get(i);
+			System.out.println(gang.getName() + ": reputation " + gang.getReputation());
+		}
+		System.out.print(" > ");
+        String input = Game.scanner.nextLine();
+        Gang gang = self.getArea().findGangByName(input);
+        if(gang == null) {
+        	System.out.println("Gang name not found. Please try again.");
+        	return;
+        }
+        gang.createNewLoan(amt);
+        System.out.println(gang.getName() + " has loaned you $" + amt);
+        System.out.println("Pay at least 1/10th of the loan amount every 10 days, or you'll regret it!");
 	}
 
 	public void sellSweet(String name, int quantity) {

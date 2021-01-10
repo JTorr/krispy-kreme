@@ -10,8 +10,12 @@ public class Area {
 	String name;
 	HashMap<String, Integer> locationLookup = new HashMap<>();
 	PoliceForce popo = new PoliceForce();
-	
 	List<Location> visited = new ArrayList<>();
+	
+	String[] gangNames = {"Pixie Stix Gang", "Lollipop Gang", "Sweet Dixies", "Sugar Daddies"};
+	int gangIndex = 0;
+	List<Gang> gangs = new ArrayList<>();
+	
 	int currentIndex = 0;
 	Location currentLoc;
 	
@@ -49,6 +53,29 @@ public class Area {
 	
 	public PoliceForce getPoliceForce() {
 		return this.popo;
+	}
+	
+	public void meetNewGang() {
+		Gang newGang = new Gang(this.gangNames[this.gangIndex]);
+		this.gangIndex += 1;
+		if(this.gangIndex > this.gangNames.length - 1) {
+			this.gangIndex = 0;
+		}
+		this.gangs.add(newGang);
+		newGang.meetGang();
+	}
+	
+	public Gang findGangByName(String name) {
+		for(Gang gang : gangs) {
+			if(gang.getName().toLowerCase().contains(name.toLowerCase())) {
+				return gang;
+			}
+		}
+		return null;
+	}
+	
+	public List<Gang> getGangs() {
+		return this.gangs;
 	}
 	
 	private Location addLocation(String name, int level) {

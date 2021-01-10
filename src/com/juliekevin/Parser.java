@@ -25,10 +25,10 @@ public class Parser {
     		throw new Exception("Move commands must include location.");
     	} else if(parsedVerb.getType() == "view" && words.length >= 2) {
     		return new Command(parsedVerb.toString(), words[1].trim());
-    	} else if(parsedVerb.getType() == "sale" && words.length == 3){
+    	} else if(parsedVerb.getType().matches("sale|get") && words.length == 3){
     		return parseWithQty(words[0], words[1], words[2]);
-    	} else if(parsedVerb.getType() == "sale" && words.length < 3) {
-    		throw new Exception("Buy/sell commands must include item and quantity.");
+    	} else if(parsedVerb.getType().matches("sale|get") && words.length < 3) {
+    		throw new Exception("Buy/sell/loan commands must include item and quantity.");
     	} else {
     		throw new Exception("Command type could not be identified.");
     	}

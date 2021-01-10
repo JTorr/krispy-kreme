@@ -85,6 +85,9 @@ public class Game {
             case "view":
             	handler.viewItem(cmd.getNoun());
             	break;
+            case "get":
+            	handler.getItem(cmd.getNoun(), cmd.getQty());
+            	break;
             default:
             	handler.viewItem("help");
             }

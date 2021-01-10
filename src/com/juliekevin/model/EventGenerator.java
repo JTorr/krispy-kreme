@@ -13,16 +13,19 @@ public class EventGenerator {
 	public void checkForEvents() {
 		int rand = GameUtils.getRand(1, 100);
 		if(rand < 10) {
-			generateRandomEvent(rand);
+			generateRandomEvent();
 		}
 		if(rand % 3 == 0) {
-			generateRandomEvent(rand);
+			generateRandomEvent();
 		}
 	}
 	
-	private void generateRandomEvent(int rand) {
+	private void generateRandomEvent() {
+		int rand = GameUtils.getRand(1, 100);
 		if(rand < 10) {
 			policePatrolEvent();
+		} else {
+			meetGangEvent();
 		}
 	}
 	
@@ -44,6 +47,10 @@ public class EventGenerator {
 		} else {
 			System.out.println("His eyes glide past you, and he takes a bite of his sugar-free donut.");
 		}
+	}
+	
+	private void meetGangEvent() {
+		this.player.getArea().meetNewGang();
 	}
 
 }
