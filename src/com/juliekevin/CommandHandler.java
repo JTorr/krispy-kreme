@@ -1,9 +1,11 @@
 package com.juliekevin;
 
 import java.util.List;
+import java.util.Scanner;
 
 import com.juliekevin.model.Area;
 import com.juliekevin.model.CoinPurse;
+import com.juliekevin.model.Command;
 import com.juliekevin.model.EventGenerator;
 import com.juliekevin.model.Gang;
 import com.juliekevin.model.Loan;
@@ -17,6 +19,49 @@ public class CommandHandler {
 		this.self = self;
 		this.EG = new EventGenerator(self);
 	}
+	
+	public void processInput(Parser parser, Scanner scanner) {
+    	try {
+    		System.out.print(self.getLocation().getName() + " > ");
+            String input = scanner.nextLine();
+            Command cmd = parser.parse(input);
+            
+            switch(cmd.getVerb()) {
+            case "quit": 
+            	System.out.println("Exiting...");
+                Game.status = "quit";
+                break;
+            case "go":
+            	visitLocation(cmd.getNoun());
+                break;
+            case "inventory":
+            	System.out.println(self.getInventory());
+            	break;
+            case "buy":
+            	buySweet(cmd.getNoun(), cmd.getQty());
+            	break;
+            case "sell":
+            	sellSweet(cmd.getNoun(), cmd.getQty());
+            	break;
+            case "help":
+            	viewItem("help");
+            	break;
+            case "view":
+            	viewItem(cmd.getNoun());
+            	break;
+            case "get":
+            	getItem(cmd.getNoun(), cmd.getQty());
+            	break;
+            case "pay":
+            	payLoan(cmd.getQty());
+            	break;
+            default:
+            	viewItem("help");
+            }
+        } catch(Exception e) {
+        	System.out.println(e.getMessage());
+        }
+    }
 
 	public void buySweet(String name, int quantity) {
 		Location location = this.self.getLocation();

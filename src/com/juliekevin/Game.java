@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import com.juliekevin.model.Command;
 import com.juliekevin.model.SweetList;
 
 import utils.CsvReader;
@@ -32,7 +31,7 @@ public class Game {
         printInitialHelp();
 
         while (Game.status.equals("active")) {  
-        	processInput(parser, scanner, handler);                 
+        	handler.processInput(parser, scanner);                 
         }
             
         if (Game.status.equals("won")) {
@@ -55,50 +54,6 @@ public class Game {
     	System.out.println("- Buy (item)");
     	System.out.println("- Sell (item)\n");
     }
-    
-    private static void processInput(Parser parser, Scanner scanner, CommandHandler handler) {
-    	try {
-    		System.out.print(player.getLocation().getName() + " > ");
-            String input = scanner.nextLine();
-            Command cmd = parser.parse(input);
-            
-            switch(cmd.getVerb()) {
-            case "quit": 
-            	System.out.println("Exiting...");
-                Game.status = "quit";
-                break;
-            case "go":
-            	handler.visitLocation(cmd.getNoun());
-                break;
-            case "inventory":
-            	System.out.println(player.getInventory());
-            	break;
-            case "buy":
-            	handler.buySweet(cmd.getNoun(), cmd.getQty());
-            	break;
-            case "sell":
-            	handler.sellSweet(cmd.getNoun(), cmd.getQty());
-            	break;
-            case "help":
-            	handler.viewItem("help");
-            	break;
-            case "view":
-            	handler.viewItem(cmd.getNoun());
-            	break;
-            case "get":
-            	handler.getItem(cmd.getNoun(), cmd.getQty());
-            	break;
-            case "pay":
-            	handler.payLoan(cmd.getQty());
-            	break;
-            default:
-            	handler.viewItem("help");
-            }
-        } catch(Exception e) {
-        	System.out.println(e.getMessage());
-        }
-    }
-
 	
 	private static void storyIntro(String name) {
 		StringBuilder sb = new StringBuilder("In a world where Sugar is outlawed, Our Hero, ");
