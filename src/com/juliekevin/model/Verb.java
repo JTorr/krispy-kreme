@@ -1,7 +1,7 @@
 package com.juliekevin.model;
 
 public enum Verb {
-	GO("go", "move"), BUY("buy", "sale"), SELL("sell", "sale"), INVENTORY("inventory", "single"), QUIT("quit", "single"), HELP("help", "single"), VIEW("view", "view"), GET("get", "get");
+	GO("go", "move"), BUY("buy", "money"), SELL("sell", "money"), INVENTORY("inventory", "single"), QUIT("quit", "single"), HELP("help", "single"), VIEW("view", "view"), GET("get", "money"), PAY("pay", "money");
 	
 	private String name;
 	private String type;

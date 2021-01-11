@@ -1,16 +1,17 @@
 package com.juliekevin.model;
 
 import com.juliekevin.Game;
+import com.juliekevin.Character;
 
 public class Gang {
 	String name;
 	int reputation;
-	int loanAmt;
+	Boolean loansOutstanding;
 
 	public Gang(String name) {
 		this.name = name;
 		this.reputation = 0;
-		this.loanAmt = 0;
+		this.loansOutstanding = false;
 	}
 	
 	public int getReputation() {
@@ -34,25 +35,24 @@ public class Gang {
 		System.out.println("Your reputation with " + this.getName() + " is " +  + this.reputation + ".");
 	}
 	
-	public void createNewLoan(int amt) {
-		if(willMakeLoan()) {
-			CoinPurse wallet = Game.getPlayer().getWallet();
-			this.loanAmt += amt;
+	public Boolean createNewLoan(int amt) {
+		if(willMakeLoan() && !loansOutstanding) {
+			Character player = Game.getPlayer();
+			CoinPurse wallet = player.getWallet();
+			Loan loan = new Loan(this, amt);
+			player.addLoan(loan);
 			wallet.earnMoney(Integer.toString(amt));
+			this.loansOutstanding = true;
+			return true;
 		} else {
 			System.out.println("Your reputation is too low, or you owe too much to this gang.");
+			return false;
 		}
 	}
 	
-	public void makePayment(int amt) {
-		this.loanAmt -= amt;
-		System.out.println(this.getName() + " thanks you for your payment of " + Integer.toString(amt));
-		if(this.loanAmt > 0) {
-			System.out.println("You still owe $" + this.loanAmt + " but they think maybe you can keep your kneecaps today.");
-		} else {
-			System.out.println("Congratulations on paying off your loan. Your reward is that you don't die.");
-			this.reputation += 2;
-		}
+	public void payOffLoan() {
+		this.loansOutstanding = false;
+		this.reputation += 2;
 	}
 	
 	private Boolean willMakeLoan() {

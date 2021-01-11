@@ -6,6 +6,7 @@ import com.juliekevin.model.Area;
 import com.juliekevin.model.CoinPurse;
 import com.juliekevin.model.EventGenerator;
 import com.juliekevin.model.Gang;
+import com.juliekevin.model.Loan;
 import com.juliekevin.model.Supplier;
 
 public class CommandHandler {
@@ -91,9 +92,52 @@ public class CommandHandler {
         	System.out.println("Gang name not found. Please try again.");
         	return;
         }
-        gang.createNewLoan(amt);
-        System.out.println(gang.getName() + " has loaned you $" + amt);
-        System.out.println("Pay at least 1/10th of the loan amount every 10 days, or you'll regret it!");
+        
+        Boolean loanMade = gang.createNewLoan(amt);
+        if(loanMade) {
+        	System.out.println(gang.getName() + " has loaned you $" + amt);
+            System.out.println("Pay at least 1/10th of the loan amount every 10 days, or you'll regret it!");
+
+        }
+     }
+	
+	public void payLoan(int amt) {
+		Character player = Game.getPlayer();
+		if(player.loans.size() < 1) {
+			System.out.println("You do not have any outstanding loans.");
+			return;
+		}
+		System.out.println("Which gang do you want to repay a loan to?");
+		List<Loan> loans = player.getLoans();
+		for(int i=0; i < loans.size(); i++) {
+			Loan loan = loans.get(i);
+			System.out.print(loan.getGangOwed().getName() + ", total owed: " + loan.getAmtOwed());
+			System.out.println(" , min payment: " + loan.getMinPayment());
+		}
+		System.out.print(" > ");
+        String input = Game.scanner.nextLine();
+        Gang gang = self.getArea().findGangByName(input);
+        if(gang == null) {
+        	System.out.println("Gang name not found. Please try again.");
+        	return;
+        } else {
+        	payGang(player, gang, amt);
+        }
+	}
+	
+	private void payGang(Character player, Gang gang, int amt) {
+		try {
+			Loan loan = player.findLoan(gang);
+			if(loan == null) {
+				System.out.println("Loan not found.");
+				return;
+			}
+			player.wallet.spendMoney(Integer.toString(amt));
+			loan.makePayment(amt);
+		} catch(Exception e) {
+			System.out.println("Loan payment could not be completed. Please ensure you have enough funds.");
+			System.out.println(e.getMessage());
+		}
 	}
 
 	public void sellSweet(String name, int quantity) {

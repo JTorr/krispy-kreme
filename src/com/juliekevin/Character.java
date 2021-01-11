@@ -1,7 +1,12 @@
 package com.juliekevin;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.juliekevin.model.Area;
 import com.juliekevin.model.CoinPurse;
+import com.juliekevin.model.Gang;
+import com.juliekevin.model.Loan;
 
 public class Character {
 	String name;
@@ -10,6 +15,7 @@ public class Character {
 	Stash stash;
 	int crimeCount;
 	int copHeat;
+	List<Loan> loans = new ArrayList<>();
 	
 	public Character(String name, String areaName) {
 		this.name = name;
@@ -18,13 +24,18 @@ public class Character {
 		this.crimeCount = 0;
 	}
 	
-	public Location getLocation() {
-		return this.area.getCurrentLocation();
-	}
+	// Location Management methods
 	
 	public Area getArea() {
 		return this.area;
 	}
+	
+	public Location getLocation() {
+		return this.area.getCurrentLocation();
+	}
+	
+	// Crime Management methods
+	
 	
 	public int getCrimeCount() {
 		return this.crimeCount;
@@ -33,7 +44,16 @@ public class Character {
 	public void incrementCrimeCount() {
 		this.crimeCount += 1;
 	}
-
+		
+	public int getCopHeat() {
+		return this.copHeat;
+	}
+	
+	public void incrementCopHeat(int amt) {
+		this.copHeat += amt;
+	}
+	
+	// Inventory Management methods
 	
 	public String getInventory() {
 		StringBuilder sb = new StringBuilder("Your inventory currently contains: \n");
@@ -52,11 +72,26 @@ public class Character {
 		return this.wallet;
 	}
 	
-	public int getCopHeat() {
-		return this.copHeat;
+	// Loan Management methods
+	
+	public List<Loan> getLoans() {
+		return this.loans;
 	}
 	
-	public void incrementCopHeat(int amt) {
-		this.copHeat += amt;
+	public void addLoan(Loan loan) {
+		this.loans.add(loan);
+	}
+	
+	public void removeLoan(Loan loan) {
+		this.loans.remove(loan);
+	}
+	
+	public Loan findLoan(Gang gang) {
+		for(Loan loan : this.loans) {
+			if(gang == loan.getGangOwed()) {
+				return loan;
+			}
+		}
+		return null;
 	}
 }
