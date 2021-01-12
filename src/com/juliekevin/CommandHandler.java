@@ -22,7 +22,7 @@ public class CommandHandler {
 	
 	public void processInput(Parser parser, Scanner scanner) {
     	try {
-    		System.out.print(self.getLocation().getName() + " > ");
+    		System.out.print("Day " + Game.getDay() + ", " + self.getLocation().getName() + " > ");
             String input = scanner.nextLine();
             Command cmd = parser.parse(input);
             
@@ -228,6 +228,7 @@ public class CommandHandler {
 		System.out.println("Going to " + loc + "\n");
 		Area area = self.getArea();
 		area.visitLocation(loc);
+		Game.incrementDay();
 		EG.checkForEvents();
 	}
 
@@ -257,14 +258,7 @@ public class CommandHandler {
 		System.out.println(
 				"Example commands:\n 'go MyCity',\n 'buy donuts 3',\n 'sell 3 donuts',\n 'inventory',\n 'help'\n");
 		System.out.println("\nCommon actions include: ");
-		System.out.println("- View help");
-    	System.out.println("- View inventory");
-    	System.out.println("- View location");
-    	System.out.println("- View supplier");
-    	System.out.println("- View junkie");
-    	System.out.println("- Go (location)");
-    	System.out.println("- Buy (item)");
-    	System.out.println("- Sell (item)");
+		Game.getAvailableActions();
 	}
 
 	private void viewSupplier() {

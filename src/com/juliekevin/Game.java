@@ -12,6 +12,7 @@ import utils.CsvReader;
 public class Game {
 	static Character player;
 	static String status;
+	static int currentDay = 1;
 	static SweetList sweetList = new SweetList();;
 	static String filePath = new File("").getAbsolutePath();
 	static List<String> NameList;
@@ -28,7 +29,8 @@ public class Game {
         CommandHandler handler = new CommandHandler(player);
         storyIntro(Game.player.name);
 
-        printInitialHelp();
+    	System.out.println("What would you like to do?");
+        getAvailableActions();
 
         while (Game.status.equals("active")) {  
         	handler.processInput(parser, scanner);                 
@@ -43,16 +45,18 @@ public class Game {
         }
     }
     
-    private static void printInitialHelp() {
-    	System.out.println("What would you like to do?");
+    public static void getAvailableActions() {
     	System.out.println("- View help");
     	System.out.println("- View inventory");
     	System.out.println("- View location");
     	System.out.println("- View supplier");
     	System.out.println("- View junkie");
     	System.out.println("- Go (location)");
-    	System.out.println("- Buy (item)");
-    	System.out.println("- Sell (item)\n");
+    	System.out.println("- Buy (item) (qty)");
+    	System.out.println("- Sell (item) (qty)");
+    	System.out.println("- Get loan (amt)");
+    	System.out.println("- Pay loan (amt)\n");
+
     }
 	
 	private static void storyIntro(String name) {
@@ -74,6 +78,14 @@ public class Game {
 	
 	public static Character getPlayer() {
 		return player;
+	}
+	
+	public static int getDay() {
+		return currentDay;
+	}
+	
+	public static void incrementDay() {
+		currentDay += 1;
 	}
 	
 	private static void createNameList() {

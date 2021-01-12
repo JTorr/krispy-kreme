@@ -7,11 +7,13 @@ public class Gang {
 	String name;
 	int reputation;
 	Boolean loansOutstanding;
+	Boolean hitOrdered;
 
 	public Gang(String name) {
 		this.name = name;
 		this.reputation = 0;
 		this.loansOutstanding = false;
+		this.hitOrdered = false;
 	}
 	
 	public int getReputation() {
@@ -20,11 +22,15 @@ public class Gang {
 	
 	public int loseReputation(int amt) {
 		this.reputation -= amt;
+		System.out.println("Your reputation with " + this.getName() + " has fallen to " + this.getReputation());
+		reviewHitStatus();
 		return this.reputation;
 	}
 	
 	public int gainReputation(int amt) {
 		this.reputation += amt;
+		System.out.println("Your reputation with " + this.getName() + " has risen to " + this.getReputation());
+		reviewHitStatus();
 		return this.reputation;
 	}
 	
@@ -52,7 +58,8 @@ public class Gang {
 	
 	public void payOffLoan() {
 		this.loansOutstanding = false;
-		this.reputation += 2;
+		this.gainReputation(2);
+		Game.getPlayer().removeLoan(this);
 	}
 	
 	private Boolean willMakeLoan() {
@@ -66,4 +73,18 @@ public class Gang {
 	public String getName() {
 		return name;
 	}
+	
+	public void reviewHitStatus() {
+		Boolean currentHit = this.hitOrdered;
+		if(this.reputation <= -5) {
+			this.hitOrdered = true;
+			System.out.println(this.name + " has ordered a hit on you.");
+		} else if (currentHit){
+			this.hitOrdered = false;
+			System.out.println(this.name + " has cancelled the hit on you.");
+		} else {
+			this.hitOrdered = false;
+		}
+	}
+
 }

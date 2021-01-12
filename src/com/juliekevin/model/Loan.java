@@ -1,14 +1,16 @@
 package com.juliekevin.model;
 
+import com.juliekevin.Game;
+
 public class Loan {
 	int amt;
 	int originalAmt;
-	int daysSinceLastPayment;
+	int nextPaymentDue;
 	int minPayment;
 	Gang gangOwed;
 
 	public Loan(Gang gang, int amt) {
-		this.daysSinceLastPayment = 0;
+		this.nextPaymentDue = Game.getDay() + 10;
 		this.amt = amt;
 		this.originalAmt = amt;
 		this.gangOwed = gang;
@@ -22,6 +24,7 @@ public class Loan {
 			return;
 		} 
 		this.amt -= amt;
+		this.nextPaymentDue = Game.getDay() + 10;
 		if(this.amt > 0) {
 			System.out.println(getGangOwed().getName() + " thanks you for your payment of $" + Integer.toString(amt));
 			System.out.println("You still owe $" + this.amt + " but they think maybe you can keep your kneecaps today.");
@@ -42,5 +45,8 @@ public class Loan {
 	public int getAmtOwed() {
 		return amt;
 	}
-
+	
+	public Boolean loanOverdue() {
+		return this.nextPaymentDue < Game.getDay();
+	}
 }

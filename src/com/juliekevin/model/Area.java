@@ -56,11 +56,13 @@ public class Area {
 	}
 	
 	public void meetNewGang() {
-		Gang newGang = new Gang(this.gangNames[this.gangIndex]);
-		this.gangIndex += 1;
+		Gang newGang;
 		if(this.gangIndex > this.gangNames.length - 1) {
-			this.gangIndex = 0;
+			newGang = new Gang("Gang" + this.gangIndex);
+		} else {
+			newGang = new Gang(this.gangNames[this.gangIndex]);
 		}
+		this.gangIndex += 1;
 		this.gangs.add(newGang);
 		newGang.meetGang();
 	}

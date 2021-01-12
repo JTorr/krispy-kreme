@@ -82,7 +82,8 @@ public class Character {
 		this.loans.add(loan);
 	}
 	
-	public void removeLoan(Loan loan) {
+	public void removeLoan(Gang gang) {
+		Loan loan = findLoan(gang);
 		this.loans.remove(loan);
 	}
 	
@@ -93,5 +94,15 @@ public class Character {
 			}
 		}
 		return null;
+	}
+	
+	public List<Loan> getOverdueLoans() {
+		List<Loan> overdue = new ArrayList<>();
+		for(Loan loan : this.loans) {
+			if(loan.loanOverdue()) {
+				overdue.add(loan);
+			}
+		}
+		return overdue;
 	}
 }
