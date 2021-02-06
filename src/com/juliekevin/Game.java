@@ -73,7 +73,13 @@ public class Game {
 	}
 	
 	public static List<String> readNameList() {
-		return Game.NameList;
+		if(Game.NameList != null) {
+			return Game.NameList;
+		} else {
+			Game.createNameList();
+			return Game.NameList;
+		}
+		
 	}
 	
 	public static Character getPlayer() {
