@@ -62,7 +62,7 @@ class ParserTest {
 			p.parse("buy donut");
 		});
 		
-		String expectedMsg = "Buy/sell commands must include item and quantity.";
+		String expectedMsg = "Buy/sell/loan commands must include item and quantity.";
 		String actualMsg = exception.getMessage();
 		assertTrue(actualMsg.contains(expectedMsg));
 	}
